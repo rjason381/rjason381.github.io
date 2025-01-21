@@ -17,7 +17,7 @@ Ingenierio Civil de la Universidad Ricardo Palma, apasionado por la Ingenieria E
 
 ### 💼  Desarrollo: 
 **Aprendiendo Integración de Etabs y Revit**
-  Mediante la herramienta Csi x Revit, la cual ayuda a la exportación e importación<br>
+  Mediante la herramienta CSiXRevit, la cual ayuda a la exportación e importación<br>
   de modelos, y optimizando el proceso para mejorar el nivel de interoperabilidad entre ambos software:<br>
   **Revit -> Etabs**<br>
   **Etabs -> Revit**<br>
