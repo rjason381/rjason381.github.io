@@ -21,5 +21,8 @@ actualmente laborando en **CABACOR Arquitectura e Ingenieria** como **Coordinado
   Mediante la herramienta Csi x Revit, la cual ayuda a la<br>exportación e importaración de modelos:<br>**Revit -> Etabs**<br>**Etabs -> Revit**
  
 
-<img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTAwcW5zdm1ib2tqNm95cmhsZ3N3dWY4cWJoNTgybHJ6MHRlbjVqMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vinkmJE7H7QUcQblqj/giphy.gif" width="720"> 
+<img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTAwcW5zdm1ib2tqNm95cmhsZ3N3dWY4cWJoNTgybHJ6MHRlbjVqMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vinkmJE7H7QUcQblqj/giphy.gif" width="720"> <br>
+
+Angie ❤️
+
 
