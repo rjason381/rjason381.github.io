@@ -17,7 +17,6 @@ actualmente laborando en **CABACOR Arquitectura e Ingenieria** como Coordinador 
 
 
 <!-- Working GIF -->
-<img src="https://github.com/JoykishanSharma/JoykishanSharma/blob/master/dev_object.png" alt="dev_object" align="right" width="500" height="250" />
 
 ### 💼  Desarrollo: 
 * Aprendiendo sobre BRIM
