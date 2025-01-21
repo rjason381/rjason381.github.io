@@ -1,13 +1,13 @@
 <!-- Greeting -->
-# Hey there! :wave::smiley:
+# Hola!! 😄
 
 <!--Introduction -->
 **JASON ROJAS ESTRADA**
 **Ingenieria Estructural | Coordinador BIM | Modelador BIM |** 🏗️
-Ingenierio Civil de la Universidad Ricardo Palma, apasionado por la Ingenieria Estructural y Estandar BIM
-Actualmente laborando en **CABACOR Arquitectura e Ingenieria** como Coordinador BIM
+Ingenierio Civil de la Universidad Ricardo Palma, apasionado por la Ingenieria Estructural y Estandar BIM,
+actualmente laborando en **CABACOR Arquitectura e Ingenieria** como Coordinador BIM
 <br>
-<img src="https://media.giphy.com/media/LnQjpWaON8nhr21vNW/giphy.gif" width="40"> <em><b>I love connecting with different people</b> so if you want to say <b>hi, I'll be happy to meet you more!</b> :blush:</em>
+<img src="https://media.giphy.com/media/LnQjpWaON8nhr21vNW/giphy.gif" width="40"> <em><b>Me gusta conocer personas</b> <b>Así que, estaré encantado de concerte!</b> :blush:</em>
 
 <!-- Your badges -->
 [![Linkedin](https://img.shields.io/badge/-JasonRojasEstrada-blue?style=flat&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/jason-rojas-estrada-a7b8a1217/)
@@ -19,7 +19,7 @@ Actualmente laborando en **CABACOR Arquitectura e Ingenieria** como Coordinador 
 <!-- Working GIF -->
 <img src="https://github.com/JoykishanSharma/JoykishanSharma/blob/master/dev_object.png" alt="dev_object" align="right" width="500" height="250" />
 
-### 💼  Things that I'm currently working on: 
+### 💼  Desarrollo: 
 * Learning Front-End Web:computer: Development
 * Learning some vectors drawing:art: by using Adobe Illustrator.
 * Looking forward to take a Flutter:calling: course in future.
