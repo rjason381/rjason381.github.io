@@ -3,7 +3,7 @@
 
 <!--Introduction -->
 **JASON ROJAS ESTRADA**<br>
-**Ingenieria Estructural | Coordinador BIM | Modelador BIM |** 🏗️<br><br>
+**Ingeniería Estructural | Coordinador BIM | Modelador BIM |** 🏗️<br><br>
 Ingenierio Civil de la Universidad Ricardo Palma, apasionado por la Ingenieria Estructural y Estandar BIM, actualmente<br> laborando en **CABACOR Arquitectura e Ingenieria** como **Coordinador BIM**
 <br>
 <!-- Your badges -->
