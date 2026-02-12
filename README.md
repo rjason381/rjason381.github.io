@@ -1,73 +1,100 @@
-<!-- Greeting -->
-# Hola!! 😄
+<!-- Header -->
+<div align="center">
 
-<!--Introduction -->
-**JASON ROJAS ESTRADA**<br>
-**Ingeniería Estructural | Coordinador BIM | Modelador BIM |** 🏗️<br><br>
-Ingenierio Civil de la Universidad Ricardo Palma, apasionado por la Ingenieria Estructural y Estandar BIM, actualmente<br> laborando en **CABACOR Arquitectura e Ingenieria** como **Coordinador BIM**
-<br>
-<!-- Your badges -->
-[![Linkedin](https://img.shields.io/badge/-JasonRojasEstrada-blue?style=flat&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/jason-rojas-estrada-a7b8a1217/)
-[![Instagram](https://img.shields.io/badge/-rjasonlz-c13584?style=flat&labelColor=c13584&logo=instagram&logoColor=white)](https://www.instagram.com/rjasonlz/)
+# JASON ROJAS ESTRADA
+### Civil Engineer (CIP 368167) | BIM Coordinator | BIM Modeler
 
-<!-- Profile View Count -->
+Implementacion BIM para proyectos de edificacion e infraestructura, con foco en hospitales, coordinacion multidisciplinaria y control de informacion bajo ISO 19650.
 
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Jason%20Rojas%20Estrada-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jason-rojas-estrada-a7b8a1217/)
+[![Instagram](https://img.shields.io/badge/Instagram-rjasonlz-C13584?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/rjasonlz/)
+[![Email](https://img.shields.io/badge/Email-rjason381%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:rjason381@gmail.com)
 
-<!-- Working GIF -->
+[![BIM Coordinator](https://img.shields.io/badge/Role-BIM%20Coordinator-0052CC?style=flat-square)](#perfil-bim)
+[![ISO 19650](https://img.shields.io/badge/Standard-ISO%2019650-1F7A8C?style=flat-square)](#perfil-bim)
+[![Hospital Projects](https://img.shields.io/badge/Focus-Hospital%20Projects-00695C?style=flat-square)](#proyectos-destacados)
+[![CDE ACC](https://img.shields.io/badge/CDE-ACC-0F9D58?style=flat-square)](#stack-bim)
 
-### 💼  Desarrollo: 
-**Aprendiendo Integración de Etabs y Revit**
-  Mediante la herramienta CSiXRevit, la cual ayuda a la exportación e importación<br>
-  de modelos, y optimizando el proceso para mejorar el nivel de interoperabilidad entre ambos software:<br>
-  **Revit -> Etabs**<br>
-  **Etabs -> Revit**<br>
- 
+</div>
+
+---
+
+## Perfil BIM
+Ingeniero civil especializado en implementacion y gestion BIM en proyectos de construccion.
+Experiencia en modelado, coordinacion interdisciplinaria, auditoria de calidad y control de avance de modelos.
+
+- Mas de 5 anos de experiencia en oficina tecnica, diseno, ingenieria y supervision de obra.
+- Mas de 2 anos en roles BIM (Modelador y Coordinador BIM).
+- Liderazgo de equipos BIM de 6 a 12 personas.
+- Trabajo con entorno CDE y estandares de informacion segun ISO 19650.
+
+## Experiencia profesional
+| Periodo | Empresa / Consorcio | Rol | Enfoque |
+|---|---|---|---|
+| Feb 2025 - Actualidad | DECHINI DSE Ingenieria | Coordinador BIM | Control de avance de diseno, PEB/PRE-PEB, auditoria de modelos, gestion multiproyectos |
+| Oct 2024 - Ene 2025 | CABACOR Arquitectura e Ingenieria | Modelador / Lider BIM | Liderazgo de coordinacion BIM, indicadores de gestion, revision de expedientes y compatibilizacion |
+| Jun 2024 - Set 2024 | DIAR Ingenieros - Consorcio SDD | Modelador BIM | Modelado y coordinacion BIM para deteccion de interferencias |
+| Ene 2024 - May 2024 | DECHINI DSE - Consorcio SDD | Asistente de Proyectos BIM | Coordinacion de informacion y soporte de modelado/compatibilizacion |
+| Ago 2023 - Nov 2023 | ARCON Arquitectos e Ingenieros S.A.C. | Asistente de Residente | Metrados, planos y coordinacion de obra con apoyo BIM |
+
+## Proyectos destacados
+- Hospital Sergio E. Bernales: control y seguimiento de avance de diseno BIM.
+- Viaducto Santa Rosa: elaboracion de plan de ejecucion BIM y cronograma de modelado.
+- Torre Rosales (oficinas y hotel): auditoria de modelado, reporte de interferencias y seguimiento.
+- Hospital Antonio Lorena Nivel III-1 (Cusco): coordinacion BIM, compatibilizacion y gestion de incidencias.
+
+## Servicios BIM
+1. Modelado BIM LOD 200, 300 y 350 para Estructuras y MEP.
+2. Coordinacion BIM multidisciplinaria y deteccion de interferencias.
+3. Auditoria de modelos BIM para control de calidad y cumplimiento contractual.
+4. Gestion de informacion en CDE (ACC), seguimiento en Revizto y trazabilidad.
+5. Metrados, cuantificaciones y documentacion tecnica desde modelo.
+6. Estandarizacion BIM: parametros, clasificacion y buenas practicas.
+
+## Stack BIM
+### Modelado y coordinacion
+`Revit` `Navisworks Manage` `ETABS` `AutoCAD`
+
+### Gestion y colaboracion
+`Autodesk Construction Cloud (ACC)` `Revizto` `Excel`
+
+### Automatizacion y analitica
+`Python` `MySQL` `C#` `Power BI` `Looker Studio` `AppSheet`
+
+## Flujo BIM de trabajo
+1. Definicion de alcance BIM, entregables y matriz de responsabilidades.
+2. Configuracion de estandares (nomenclatura, parametros, clasificacion y QA/QC).
+3. Modelado por especialidades y federacion de modelos.
+4. Coordinacion tecnica, clash detection y seguimiento de incidencias.
+5. Emision de documentacion, metrados e informes de avance.
+6. Cierre de iteraciones y mejora continua del proceso BIM.
+
+## Desarrollo actual
+**Integracion ETABS <-> Revit con CSiXRevit**
+
+Optimizando exportacion e importacion de modelos para mejorar interoperabilidad y reducir retrabajos en el flujo estructural.
+
+- Revit -> ETABS
+- ETABS -> Revit
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTAwcW5zdm1ib2tqNm95cmhsZ3N3dWY4cWJoNTgybHJ6MHRlbjVqMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vinkmJE7H7QUcQblqj/giphy.gif" width="720"> <br>
 
+## Formacion y especializacion BIM
+- Ingenieria Civil - Universidad Ricardo Palma (2023).
+- Especialista Coordinador BIM - Konstruedu (2025).
+- Coordinacion con Navisworks - Konstruedu (2024).
+- Navisworks Manage - Konstruedu (2024).
+- Programacion de Obras con BIM - Konstruedu (2024).
+- Metrados con Revit - Konstruedu (2023).
+- Gestion BIM (parametros y cuantificacion) - Konstruedu (2023).
+- Modelado BIM con Revit Estructuras - Konstruedu (2023).
+- Especializacion BIM en Proyectos Hospitalarios - En curso (2026).
+
+## Metas BIM 2026
+- Consolidar una biblioteca BIM estructural reutilizable para proyectos hospitalarios.
+- Fortalecer automatizacion de control de avance multiproyectos.
+- Publicar casos de estudio BIM con enfoque en productividad y coordinacion tecnica.
+
+---
+
 Angie ❤️
-
-
-
-## Portafolio BIM (Nuevo)
-
-### Enfoque BIM
-- Coordinacion BIM multidisciplinaria (Arquitectura, Estructuras y MEP).
-- Modelado BIM estructural en Revit con criterios de constructibilidad.
-- Revision de calidad del modelo (nombres, parametros, interferencias y consistencia).
-- Interoperabilidad entre Revit, ETABS y Navisworks para reducir retrabajos.
-
-### Servicios BIM
-1. Modelado BIM LOD 200, LOD 300 y LOD 350 para proyectos de edificacion.
-2. Coordinacion BIM y deteccion de interferencias (clash detection).
-3. Documentacion de planos, metrados y cuantificaciones desde modelo.
-4. Estandarizacion BIM: plantillas, parametros compartidos y buenas practicas.
-5. Soporte de interoperabilidad Revit <-> ETABS para flujo estructural.
-
-### Flujo de trabajo BIM
-1. Definicion de alcance BIM y matriz de responsabilidades.
-2. Configuracion de plantillas y estandares de modelado.
-3. Modelado y coordinacion por especialidades.
-4. Revision tecnica y control de calidad BIM.
-5. Emision de entregables y seguimiento de cambios.
-
-### Entregables BIM
-- Modelos federados por disciplina.
-- Reportes de interferencias y seguimiento de incidencias.
-- Planos coordinados y listados de cantidades.
-- Versiones de modelo por hitos del proyecto.
-
-### Software BIM
-`Revit` `ETABS` `Navisworks` `AutoCAD` `Excel`
-
-### Metas BIM 2026
-- Mejorar flujo Revit <-> ETABS con tiempos de ida y vuelta mas cortos.
-- Consolidar una biblioteca estructural BIM reutilizable.
-- Publicar casos de estudio BIM con metricas de productividad.
-
-### Proyectos BIM (por completar)
-| Proyecto | Rol BIM | Alcance | Estado |
-|---|---|---|---|
-| Proyecto 01 | Coordinador BIM | Coordinacion Estructuras + MEP | En desarrollo |
-| Proyecto 02 | Modelador BIM | Modelado estructural LOD 300 | En desarrollo |
-| Proyecto 03 | Coordinador BIM | Revision de interferencias y QA/QC | Planificado |
