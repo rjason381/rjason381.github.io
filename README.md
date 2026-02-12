@@ -29,8 +29,6 @@ Angie ❤️
 
 
 
----
-
 ## Portafolio BIM (Nuevo)
 
 ### Enfoque BIM
