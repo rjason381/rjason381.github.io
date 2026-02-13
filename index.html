@@ -13,117 +13,206 @@
 <body>
   <header class="site-nav">
     <div class="nav-inner">
-      <a class="brand" href="index.html">JASON ROJAS BIM</a>
+      <a class="brand" href="#inicio" data-panel-link="inicio">JASON ROJAS BIM</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="topNav">Menu</button>
       <nav class="nav-links" id="topNav">
-        <a class="active" href="index.html">Inicio</a>
-        <a href="experiencia.html">Experiencia</a>
-        <a href="proyectos.html">Proyectos</a>
-        <a href="servicios.html">Servicios</a>
-        <a href="contacto.html">Contacto</a>
+        <a class="active" href="#inicio" data-panel-link="inicio">Inicio</a>
+        <a href="#experiencia" data-panel-link="experiencia">Experiencia</a>
+        <a href="#proyectos" data-panel-link="proyectos">Proyectos</a>
+        <a href="#servicios" data-panel-link="servicios">Servicios</a>
+        <a href="#contacto" data-panel-link="contacto">Contacto</a>
       </nav>
     </div>
   </header>
 
-  <main class="shell">
-    <section class="intro-card">
-      <p class="kicker">Portafolio Profesional BIM</p>
-      <h1>Coordinacion BIM para proyectos de salud e infraestructura.</h1>
-      <p class="lead">
-        Soy Jason Rojas Estrada, Ingeniero Civil (CIP 368167). Este sitio presenta de forma ejecutiva mi experiencia, proyectos y servicios BIM mediante una navegacion horizontal y multipagina.
-      </p>
-      <div class="metric-row">
-        <div class="metric">
-          <strong>+5</strong>
-          <span>Anos en oficina tecnica, ingenieria y supervision</span>
-        </div>
-        <div class="metric">
-          <strong>+2</strong>
-          <span>Anos en roles BIM (Modelador y Coordinador)</span>
-        </div>
-        <div class="metric">
-          <strong>6-12</strong>
-          <span>Personas lideradas en equipos BIM</span>
-        </div>
-        <div class="metric">
-          <strong>ISO 19650</strong>
-          <span>Gestion de informacion y CDE</span>
-        </div>
-      </div>
-    </section>
-
-    <div class="track-controls">
-      <button id="prevPanel" type="button" aria-label="Panel anterior">&lt;</button>
-      <button id="nextPanel" type="button" aria-label="Panel siguiente">&gt;</button>
+  <main class="panel-shell">
+    <div class="track-controls page-controls">
+      <button id="prevPage" type="button" aria-label="Pagina anterior">&lt;</button>
+      <button id="nextPage" type="button" aria-label="Pagina siguiente">&gt;</button>
     </div>
 
-    <section id="homeTrack" class="home-track" data-horizontal>
-      <article class="home-panel">
-        <div>
-          <h2>Perfil BIM</h2>
-          <p>
-            Ingeniero civil especializado en implementacion y gestion BIM, enfocado en coordinacion multidisciplinaria, auditoria de modelos, control de avance y eficiencia de informacion para construccion.
-          </p>
-          <div class="tag-row">
-            <span class="tag">BIM Coordinator</span>
-            <span class="tag">Modelador BIM</span>
-            <span class="tag">Hospital Projects</span>
-            <span class="tag">QA/QC</span>
-          </div>
+    <section id="panelTrack" class="panel-track" data-horizontal>
+      <section class="page-panel" id="inicio" data-panel="inicio">
+        <div class="panel-content">
+          <section class="intro-card">
+            <p class="kicker">Portafolio Profesional BIM</p>
+            <h1>Panel horizontal de gestion BIM para proyectos de salud e infraestructura.</h1>
+            <p class="lead">
+              Soy Jason Rojas Estrada, Ingeniero Civil (CIP 368167). Esta interfaz esta organizada en paneles horizontales para revisar rapidamente experiencia, proyectos, servicios y contacto.
+            </p>
+            <div class="metric-row">
+              <div class="metric">
+                <strong>+5</strong>
+                <span>Anos en oficina tecnica, ingenieria y supervision</span>
+              </div>
+              <div class="metric">
+                <strong>+2</strong>
+                <span>Anos en roles BIM (Modelador y Coordinador)</span>
+              </div>
+              <div class="metric">
+                <strong>6-12</strong>
+                <span>Personas lideradas en equipos BIM</span>
+              </div>
+              <div class="metric">
+                <strong>ISO 19650</strong>
+                <span>Gestion de informacion y CDE</span>
+              </div>
+            </div>
+            <div class="tag-row">
+              <span class="tag">BIM Coordinator</span>
+              <span class="tag">Hospital Projects</span>
+              <span class="tag">QA/QC</span>
+              <span class="tag">Interoperabilidad Revit-ETABS</span>
+            </div>
+            <p class="hint">Navega con el menu superior, flechas, teclado o rueda del mouse.</p>
+          </section>
         </div>
-        <div class="cta-row">
-          <a class="btn primary" href="experiencia.html">Ver experiencia</a>
-          <a class="btn" href="proyectos.html">Ver proyectos</a>
-        </div>
-      </article>
+      </section>
 
-      <article class="home-panel alt">
-        <div>
-          <h2>Stack BIM</h2>
-          <ul class="panel-list">
-            <li><strong>Modelado y coordinacion:</strong> Revit, Navisworks Manage, ETABS, AutoCAD.</li>
-            <li><strong>Gestion:</strong> Autodesk Construction Cloud (ACC), Revizto, Excel.</li>
-            <li><strong>Automatizacion:</strong> Python, MySQL, C#, Power BI, Looker Studio, AppSheet.</li>
-            <li><strong>Interoperabilidad:</strong> flujo Revit - ETABS y estandarizacion de parametros.</li>
-          </ul>
-        </div>
-        <div class="cta-row">
-          <a class="btn primary" href="servicios.html">Servicios BIM</a>
-          <a class="btn" href="contacto.html">Contacto profesional</a>
-        </div>
-      </article>
+      <section class="page-panel" id="experiencia" data-panel="experiencia">
+        <div class="panel-content">
+          <section class="page-hero">
+            <h1>Experiencia BIM</h1>
+            <p>
+              Trayectoria en coordinacion BIM para proyectos hospitalarios e infraestructura, con control de avance, auditoria de modelos y gestion de equipos tecnicos.
+            </p>
+          </section>
 
-      <article class="home-panel">
-        <div>
-          <h2>Flujo de trabajo</h2>
-          <ol class="panel-list">
-            <li>Definicion de alcance BIM, objetivos y entregables.</li>
-            <li>Configuracion de estandares de modelado y QA/QC.</li>
-            <li>Modelado por especialidades y federacion.</li>
-            <li>Clash detection, gestion de incidencias y control de cambios.</li>
-            <li>Documentacion, metrados y reportes para decision tecnica.</li>
-            <li>Cierre de iteraciones y mejora continua de productividad.</li>
-          </ol>
+          <section class="compact-grid">
+            <article class="info-card">
+              <h3>DECHINI DSE Ingenieria</h3>
+              <p class="board-meta">Coordinador BIM | Feb 2025 - Actualidad</p>
+              <p>Control de avance de diseno, PEB/PRE-PEB, auditoria de modelos y seguimiento de interferencias.</p>
+            </article>
+            <article class="info-card">
+              <h3>CABACOR Arquitectura e Ingenieria</h3>
+              <p class="board-meta">Modelador / Lider BIM | Oct 2024 - Ene 2025</p>
+              <p>Liderazgo de equipo BIM, indicadores de gestion y revision de expediente tecnico para compatibilizacion.</p>
+            </article>
+            <article class="info-card">
+              <h3>DIAR Ingenieros - Consorcio SDD</h3>
+              <p class="board-meta">Modelador BIM | Jun 2024 - Set 2024</p>
+              <p>Modelado BIM para deteccion de interferencias y soporte tecnico a coordinacion multidisciplinaria.</p>
+            </article>
+            <article class="info-card">
+              <h3>DECHINI DSE - Consorcio SDD</h3>
+              <p class="board-meta">Asistente de Proyectos BIM | Ene 2024 - May 2024</p>
+              <p>Gestion de incidencias en ACC/Revizto, control de informacion CDE y validacion de metrados BIM.</p>
+            </article>
+            <article class="info-card">
+              <h3>ARCON Arquitectos e Ingenieros</h3>
+              <p class="board-meta">Asistente de Residente | Ago 2023 - Nov 2023</p>
+              <p>Metrados, planos y soporte tecnico para seguimiento de obra y control de calidad de ejecucion.</p>
+            </article>
+          </section>
         </div>
-      </article>
+      </section>
 
-      <article class="home-panel warm">
-        <div>
-          <h2>Desarrollo actual</h2>
-          <p>
-            Integracion ETABS &lt;-&gt; Revit con CSiXRevit para mejorar interoperabilidad estructural y reducir retrabajos entre analisis y modelado.
-          </p>
-          <ul class="panel-list">
-            <li>Revit -&gt; ETABS</li>
-            <li>ETABS -&gt; Revit</li>
-            <li>Control de ida y vuelta de informacion del modelo</li>
-          </ul>
+      <section class="page-panel" id="proyectos" data-panel="proyectos">
+        <div class="panel-content">
+          <section class="page-hero">
+            <h1>Proyectos BIM destacados</h1>
+            <p>
+              Casos con aplicacion de coordinacion BIM, control de incidencias, trazabilidad y soporte de decision tecnica.
+            </p>
+          </section>
+
+          <section class="compact-grid">
+            <article class="info-card">
+              <h3>Hospital Sergio E. Bernales</h3>
+              <p class="board-meta">Salud | Coordinacion BIM</p>
+              <p>Seguimiento de avance de diseno, control de entregables y coordinacion tecnica por especialidades.</p>
+            </article>
+            <article class="info-card">
+              <h3>Hospital Antonio Lorena Nivel III-1</h3>
+              <p class="board-meta">Cusco | Modelado y coordinacion</p>
+              <p>Gestion de incidencias, compatibilizacion y soporte de informacion BIM para PMO y control de obra.</p>
+            </article>
+            <article class="info-card">
+              <h3>Viaducto Santa Rosa</h3>
+              <p class="board-meta">Infraestructura | Plan BIM</p>
+              <p>Elaboracion de plan de ejecucion BIM y cronograma de modelado para ordenamiento de hitos tecnicos.</p>
+            </article>
+            <article class="info-card">
+              <h3>Torre Rosales</h3>
+              <p class="board-meta">Edificios de oficinas y hotel</p>
+              <p>Auditoria de modelado, reporte de interferencias y seguimiento de observaciones de coordinacion.</p>
+            </article>
+          </section>
         </div>
-        <div class="cta-row">
-          <a class="btn primary" href="contacto.html">Contactar</a>
-          <a class="btn" href="https://www.linkedin.com/in/jason-rojas-estrada-a7b8a1217/" target="_blank" rel="noreferrer">LinkedIn</a>
+      </section>
+
+      <section class="page-panel" id="servicios" data-panel="servicios">
+        <div class="panel-content">
+          <section class="page-hero">
+            <h1>Servicios BIM</h1>
+            <p>
+              Soporte tecnico integral para modelado, coordinacion y control de informacion en etapas de diseno y preconstruccion.
+            </p>
+          </section>
+
+          <section class="compact-grid">
+            <article class="info-card">
+              <h3>Modelado BIM LOD 200-350</h3>
+              <p>Modelado para Estructuras y MEP con criterios de constructibilidad y estandarizacion de parametros.</p>
+            </article>
+            <article class="info-card">
+              <h3>Coordinacion multidisciplinaria</h3>
+              <p>Federacion de modelos, deteccion de interferencias y seguimiento de cierre de incidencias.</p>
+            </article>
+            <article class="info-card">
+              <h3>QA/QC de modelos BIM</h3>
+              <p>Auditoria tecnica para cumplimiento contractual, consistencia y calidad de informacion.</p>
+            </article>
+            <article class="info-card">
+              <h3>Gestion CDE</h3>
+              <p>Control documental y trazabilidad de informacion con ACC y Revizto bajo enfoque ISO 19650.</p>
+            </article>
+            <article class="info-card">
+              <h3>Metrados y reportes</h3>
+              <p>Cuantificaciones desde modelo y reportes de avance para soporte de toma de decisiones.</p>
+            </article>
+            <article class="info-card">
+              <h3>Interoperabilidad ETABS-Revit</h3>
+              <p>Integracion estructural para reducir retrabajos entre analisis y modelado BIM.</p>
+            </article>
+          </section>
         </div>
-      </article>
+      </section>
+
+      <section class="page-panel" id="contacto" data-panel="contacto">
+        <div class="panel-content">
+          <section class="page-hero">
+            <h1>Contacto profesional</h1>
+            <p>
+              Disponible para colaboraciones BIM, coordinacion tecnica, auditoria de modelos y soporte de implementacion para equipos de proyecto.
+            </p>
+          </section>
+
+          <section class="compact-grid">
+            <article class="info-card">
+              <h3>Email</h3>
+              <p>rjason381@gmail.com</p>
+              <p><a class="btn primary" href="mailto:rjason381@gmail.com">Enviar correo</a></p>
+            </article>
+            <article class="info-card">
+              <h3>LinkedIn</h3>
+              <p>Perfil profesional para networking y colaboraciones.</p>
+              <p><a class="btn" href="https://www.linkedin.com/in/jason-rojas-estrada-a7b8a1217/" target="_blank" rel="noreferrer">Abrir LinkedIn</a></p>
+            </article>
+            <article class="info-card">
+              <h3>Instagram</h3>
+              <p>Canal personal y actualizaciones de actividades.</p>
+              <p><a class="btn" href="https://www.instagram.com/rjasonlz/" target="_blank" rel="noreferrer">Abrir Instagram</a></p>
+            </article>
+            <article class="info-card">
+              <h3>Ubicacion</h3>
+              <p>Lima, Peru</p>
+              <p>Modalidad remota y presencial segun alcance del proyecto.</p>
+            </article>
+          </section>
+        </div>
+      </section>
     </section>
   </main>
 
@@ -134,5 +223,3 @@
   <script src="main.js"></script>
 </body>
 </html>
-
-
