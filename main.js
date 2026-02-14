@@ -7,6 +7,7 @@
   var viewedCount = 0;
   var viewedPhotos = {};
   var finalRevealed = false;
+  var finalRevealPending = false;
   var heartRainTimer = null;
   var tiltValues = [-2, 1.8, -1.4, 2.2, -2.6, 1.1, -1.9, 2.4];
   var photoDescriptions = {
@@ -174,6 +175,11 @@
     modalPhotoImage.src = "";
     modalPhotoImage.alt = "";
     refreshBodyModalState();
+
+    if (finalRevealPending && !finalRevealed) {
+      finalRevealPending = false;
+      window.setTimeout(triggerFinalReveal, 180);
+    }
   }
 
   function stopHeartRain() {
@@ -233,7 +239,6 @@
     }
 
     finalRevealed = true;
-    closeOpenedPhotoModal();
     openFinalPhotoModal();
   }
 
@@ -251,7 +256,7 @@
     updateViewedCounter();
 
     if (viewedCount === totalPhotos) {
-      window.setTimeout(triggerFinalReveal, 320);
+      finalRevealPending = true;
     }
   }
 
