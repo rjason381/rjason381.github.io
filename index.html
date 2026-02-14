@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260214b">
+  <link rel="stylesheet" href="styles.css?v=20260214c">
 </head>
 <body>
   <div class="hearts" aria-hidden="true">
@@ -41,23 +41,39 @@
     <section class="welcome-card" id="welcome">
       <p class="date-tag">14 de febrero</p>
       <h1>Mini juego de amor</h1>
-      <p class="subtitle">Supera 3 rondas del codigo de cupido para desbloquear el boton de aceptar.</p>
+      <p class="subtitle">Completa una mision estilo Contra para desbloquear el boton de aceptar.</p>
 
       <div class="game-panel">
         <div class="game-stats">
-          <p>Ronda: <strong id="roundValue">1</strong>/3</p>
-          <p>Vidas: <strong id="livesValue">3</strong></p>
-          <p>Tiempo: <strong id="timerValue">--</strong></p>
+          <p>Nivel: <strong id="levelValue">1</strong></p>
+          <p>Vida: <strong id="hpValue">5</strong></p>
+          <p>Puntaje: <strong id="scoreValue">0</strong></p>
         </div>
-        <p id="gameStatus" class="game-status">Memoriza la secuencia y repitela sin fallar.</p>
-        <div class="game-grid" id="gameGrid" aria-label="Tablero del codigo de cupido"></div>
-        <button id="startGameButton" class="game-start" type="button">Iniciar reto</button>
+        <p id="gameStatus" class="game-status">Inicia la mision y derrota al jefe final.</p>
+        <div class="contra-stage">
+          <canvas id="contraCanvas" class="contra-canvas" width="560" height="300" aria-label="Minijuego estilo Contra"></canvas>
+          <div id="bossLife" class="boss-life" hidden>
+            <span>Jefe final</span>
+            <div class="boss-life-track">
+              <div id="bossLifeBar" class="boss-life-bar"></div>
+            </div>
+          </div>
+        </div>
+        <button id="startGameButton" class="game-start" type="button">Iniciar mision</button>
+        <div id="touchControls" class="touch-controls" aria-label="Controles tactiles">
+          <button class="touch-btn" data-control="up" type="button" aria-label="Arriba">&#8593;</button>
+          <button class="touch-btn" data-control="left" type="button" aria-label="Izquierda">&#8592;</button>
+          <button class="touch-btn" data-control="down" type="button" aria-label="Abajo">&#8595;</button>
+          <button class="touch-btn" data-control="right" type="button" aria-label="Derecha">&#8594;</button>
+          <button class="touch-btn fire" data-control="fire" type="button" aria-label="Disparar">Disparo</button>
+        </div>
       </div>
-      <p class="game-hint">Si fallas una casilla o se acaba el tiempo, pierdes una vida.</p>
+      <p class="game-hint">PC: WASD o flechas para mover, Espacio para disparar. Movil: usa los botones.</p>
 
       <p class="question">Quieres ser mi san valentin?</p>
       <button id="enterButton" type="button" disabled>Aceptar</button>
       <p id="unlockMessage" class="unlock-message" hidden>Desbloqueado. Presiona Aceptar.</p>
+      <p id="loveMessage" class="love-message" hidden></p>
     </section>
 
     <section class="gallery-view" id="gallery" aria-hidden="true">
@@ -92,6 +108,6 @@
   <div id="heartRain" class="heart-rain" aria-hidden="true" hidden></div>
 
   <script src="https://w.soundcloud.com/player/api.js"></script>
-  <script src="main.js?v=20260214b"></script>
+  <script src="main.js?v=20260214c"></script>
 </body>
 </html>
