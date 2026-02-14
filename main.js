@@ -39,7 +39,6 @@
   var photoModal = document.getElementById("photoModal");
   var closePhotoModal = document.getElementById("closePhotoModal");
   var modalPhotoImage = document.getElementById("modalPhotoImage");
-  var modalPhotoName = document.getElementById("modalPhotoName");
   var modalPhotoDescription = document.getElementById("modalPhotoDescription");
   var finalPhotoModal = document.getElementById("finalPhotoModal");
   var closeFinalModal = document.getElementById("closeFinalModal");
@@ -68,7 +67,6 @@
     !photoModal ||
     !closePhotoModal ||
     !modalPhotoImage ||
-    !modalPhotoName ||
     !modalPhotoDescription ||
     !finalPhotoModal ||
     !closeFinalModal ||
@@ -160,7 +158,6 @@
   function openPhotoModal(fileName, imageSrc, description) {
     modalPhotoImage.src = imageSrc;
     modalPhotoImage.alt = "Vista ampliada de " + fileName;
-    modalPhotoName.textContent = fileName;
     modalPhotoDescription.textContent = description;
     photoModal.hidden = false;
     photoModal.setAttribute("aria-hidden", "false");
@@ -337,7 +334,6 @@
   for (var i = 1; i <= totalPhotos; i += 1) {
     var card = document.createElement("figure");
     var img = document.createElement("img");
-    var caption = document.createElement("figcaption");
     var index = String(i).padStart(2, "0");
     var fileName = "photo-" + index + ".jpeg";
     var description = photoDescriptions[fileName] || "Descripcion pendiente para esta foto.";
@@ -352,11 +348,8 @@
     img.src = "photos/" + fileName;
     img.alt = "Foto especial " + i;
     img.loading = "lazy";
-    caption.className = "photo-name";
-    caption.textContent = fileName;
 
     card.appendChild(img);
-    card.appendChild(caption);
 
     (function bindPhotoEvents(photoCard, currentName, currentDescription) {
       var imagePath = "photos/" + currentName;

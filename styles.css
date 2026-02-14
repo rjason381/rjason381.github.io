@@ -311,15 +311,6 @@ body::before {
   border-radius: 12px;
 }
 
-.photo-name {
-  margin: 0.55rem 0 0.15rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #7f2945;
-  text-align: center;
-  letter-spacing: 0.01em;
-}
-
 .photo-modal {
   position: fixed;
   inset: 0;
@@ -371,14 +362,6 @@ body::before {
   display: block;
   border-radius: 14px;
   margin-top: 2.1rem;
-}
-
-.modal-photo-name {
-  margin: 0.8rem 0 0.4rem;
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: #812745;
-  text-align: center;
 }
 
 .modal-photo-description {
