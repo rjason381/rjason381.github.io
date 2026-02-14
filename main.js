@@ -1,168 +1,35 @@
 (function () {
-  var menuButton = document.querySelector('.menu-toggle');
-  var navLinks = document.getElementById('topNav');
+  var totalPhotos = 15;
+  var tiltValues = [-2, 1.8, -1.4, 2.2, -2.6, 1.1, -1.9, 2.4];
+  var collage = document.getElementById("photoCollage");
+  var enterButton = document.getElementById("enterButton");
+  var welcome = document.getElementById("welcome");
+  var gallery = document.getElementById("gallery");
 
-  if (menuButton && navLinks) {
-    menuButton.addEventListener('click', function () {
-      var isOpen = navLinks.classList.toggle('open');
-      menuButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
+  if (!collage || !enterButton || !welcome || !gallery) {
+    return;
   }
 
-  function bindHorizontalTrack(track) {
-    if (!track) {
-      return;
-    }
+  for (var i = 1; i <= totalPhotos; i += 1) {
+    var card = document.createElement("figure");
+    var img = document.createElement("img");
+    var index = String(i).padStart(2, "0");
 
-    track.addEventListener(
-      'wheel',
-      function (event) {
-        if (window.innerWidth < 920) {
-          return;
-        }
+    card.className = "photo-card";
+    card.style.setProperty("--tilt", tiltValues[(i - 1) % tiltValues.length] + "deg");
+    card.style.animationDelay = ((i - 1) * 0.08).toFixed(2) + "s";
 
-        if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) {
-          return;
-        }
+    img.src = "photos/photo-" + index + ".jpeg";
+    img.alt = "Foto especial " + i;
+    img.loading = "lazy";
 
-        var innerPanel = event.target.closest('.page-panel');
-        if (innerPanel) {
-          var canScrollDown = innerPanel.scrollTop + innerPanel.clientHeight < innerPanel.scrollHeight - 1;
-          var canScrollUp = innerPanel.scrollTop > 0;
-
-          if ((event.deltaY > 0 && canScrollDown) || (event.deltaY < 0 && canScrollUp)) {
-            return;
-          }
-        }
-
-        event.preventDefault();
-        track.scrollBy({
-          left: event.deltaY,
-          behavior: 'smooth'
-        });
-      },
-      { passive: false }
-    );
+    card.appendChild(img);
+    collage.appendChild(card);
   }
 
-  document.querySelectorAll('[data-horizontal]').forEach(function (track) {
-    bindHorizontalTrack(track);
+  enterButton.addEventListener("click", function () {
+    document.body.classList.add("show-gallery");
+    welcome.setAttribute("aria-hidden", "true");
+    gallery.setAttribute("aria-hidden", "false");
   });
-
-  var panelTrack = document.getElementById('panelTrack');
-  var prevPage = document.getElementById('prevPage');
-  var nextPage = document.getElementById('nextPage');
-  var panelLinks = Array.prototype.slice.call(document.querySelectorAll('[data-panel-link]'));
-
-  if (panelTrack && prevPage && nextPage) {
-    var panels = Array.prototype.slice.call(panelTrack.querySelectorAll('.page-panel'));
-    var currentIndex = 0;
-
-    function panelWidth() {
-      return panelTrack.clientWidth || 1;
-    }
-
-    function clampIndex(index) {
-      return Math.max(0, Math.min(index, panels.length - 1));
-    }
-
-    function nearestPanelIndex() {
-      return clampIndex(Math.round(panelTrack.scrollLeft / panelWidth()));
-    }
-
-    function goToPanel(index, smooth) {
-      currentIndex = clampIndex(index);
-
-      panelTrack.scrollTo({
-        left: panelWidth() * currentIndex,
-        behavior: smooth ? 'smooth' : 'auto'
-      });
-    }
-
-    function updateNavState() {
-      var activePanel = panels[currentIndex] && panels[currentIndex].getAttribute('data-panel');
-
-      panelLinks.forEach(function (link) {
-        var linkTarget = link.getAttribute('data-panel-link');
-
-        if (linkTarget && activePanel && linkTarget === activePanel) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
-      });
-    }
-
-    function updateControls() {
-      currentIndex = nearestPanelIndex();
-      prevPage.disabled = currentIndex <= 0;
-      nextPage.disabled = currentIndex >= panels.length - 1;
-      updateNavState();
-    }
-
-    panelLinks.forEach(function (link) {
-      link.addEventListener('click', function (event) {
-        var target = link.getAttribute('data-panel-link');
-
-        if (!target) {
-          return;
-        }
-
-        var targetIndex = panels.findIndex(function (panel) {
-          return panel.getAttribute('data-panel') === target;
-        });
-
-        if (targetIndex < 0) {
-          return;
-        }
-
-        event.preventDefault();
-        goToPanel(targetIndex, true);
-
-        if (navLinks && menuButton) {
-          navLinks.classList.remove('open');
-          menuButton.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
-
-    prevPage.addEventListener('click', function () {
-      goToPanel(currentIndex - 1, true);
-    });
-
-    nextPage.addEventListener('click', function () {
-      goToPanel(currentIndex + 1, true);
-    });
-
-    panelTrack.addEventListener('scroll', function () {
-      window.requestAnimationFrame(updateControls);
-    });
-
-    window.addEventListener('resize', function () {
-      goToPanel(currentIndex, false);
-      updateControls();
-    });
-
-    document.addEventListener('keydown', function (event) {
-      var tagName = document.activeElement && document.activeElement.tagName
-        ? document.activeElement.tagName.toLowerCase()
-        : '';
-
-      if (tagName === 'input' || tagName === 'textarea' || tagName === 'select') {
-        return;
-      }
-
-      if (event.key === 'ArrowRight') {
-        event.preventDefault();
-        goToPanel(currentIndex + 1, true);
-      }
-
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault();
-        goToPanel(currentIndex - 1, true);
-      }
-    });
-
-    updateControls();
-  }
 })();
