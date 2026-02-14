@@ -1,6 +1,6 @@
 (function () {
   var totalPhotos = 15;
-  var targetScore = 8;
+  var targetScore = 6;
   var score = 0;
   var unlocked = false;
   var tiltValues = [-2, 1.8, -1.4, 2.2, -2.6, 1.1, -1.9, 2.4];
@@ -73,17 +73,23 @@
   for (var i = 1; i <= totalPhotos; i += 1) {
     var card = document.createElement("figure");
     var img = document.createElement("img");
+    var caption = document.createElement("figcaption");
     var index = String(i).padStart(2, "0");
+    var fileName = "photo-" + index + ".jpeg";
 
     card.className = "photo-card";
+    card.setAttribute("data-photo-name", fileName);
     card.style.setProperty("--tilt", tiltValues[(i - 1) % tiltValues.length] + "deg");
     card.style.animationDelay = ((i - 1) * 0.08).toFixed(2) + "s";
 
-    img.src = "photos/photo-" + index + ".jpeg";
+    img.src = "photos/" + fileName;
     img.alt = "Foto especial " + i;
     img.loading = "lazy";
+    caption.className = "photo-name";
+    caption.textContent = fileName;
 
     card.appendChild(img);
+    card.appendChild(caption);
     collage.appendChild(card);
   }
 
