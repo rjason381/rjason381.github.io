@@ -65,6 +65,16 @@
     </section>
   </main>
 
+  <div id="photoModal" class="photo-modal" aria-hidden="true" hidden>
+    <div class="photo-modal-backdrop" data-close-modal></div>
+    <div class="photo-modal-card" role="dialog" aria-modal="true" aria-labelledby="modalPhotoName">
+      <button id="closePhotoModal" class="modal-close" type="button" aria-label="Cerrar imagen">Cerrar</button>
+      <img id="modalPhotoImage" class="modal-photo-image" src="" alt="">
+      <p id="modalPhotoName" class="modal-photo-name"></p>
+      <p id="modalPhotoDescription" class="modal-photo-description"></p>
+    </div>
+  </div>
+
   <script src="https://w.soundcloud.com/player/api.js"></script>
   <script src="main.js"></script>
 </body>

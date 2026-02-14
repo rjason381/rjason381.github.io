@@ -30,6 +30,11 @@
   var unlockMessage = document.getElementById("unlockMessage");
   var welcome = document.getElementById("welcome");
   var gallery = document.getElementById("gallery");
+  var photoModal = document.getElementById("photoModal");
+  var closePhotoModal = document.getElementById("closePhotoModal");
+  var modalPhotoImage = document.getElementById("modalPhotoImage");
+  var modalPhotoName = document.getElementById("modalPhotoName");
+  var modalPhotoDescription = document.getElementById("modalPhotoDescription");
   var scWidget = null;
   var musicReady = false;
   var musicPlaying = false;
@@ -47,7 +52,12 @@
     !scPlayer ||
     !unlockMessage ||
     !welcome ||
-    !gallery
+    !gallery ||
+    !photoModal ||
+    !closePhotoModal ||
+    !modalPhotoImage ||
+    !modalPhotoName ||
+    !modalPhotoDescription
   ) {
     return;
   }
@@ -116,6 +126,42 @@
   });
   updateMusicButton();
 
+  function openPhotoModal(fileName, imageSrc, description) {
+    modalPhotoImage.src = imageSrc;
+    modalPhotoImage.alt = "Vista ampliada de " + fileName;
+    modalPhotoName.textContent = fileName;
+    modalPhotoDescription.textContent = description;
+    photoModal.hidden = false;
+    photoModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+  }
+
+  function closeOpenedPhotoModal() {
+    if (photoModal.hidden) {
+      return;
+    }
+
+    photoModal.hidden = true;
+    photoModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+    modalPhotoImage.src = "";
+    modalPhotoImage.alt = "";
+  }
+
+  closePhotoModal.addEventListener("click", closeOpenedPhotoModal);
+
+  photoModal.addEventListener("click", function (event) {
+    if (event.target.hasAttribute("data-close-modal")) {
+      closeOpenedPhotoModal();
+    }
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeOpenedPhotoModal();
+    }
+  });
+
   function moveHeart() {
     var maxX = Math.max(0, gameArea.clientWidth - heartButton.offsetWidth);
     var maxY = Math.max(0, gameArea.clientHeight - heartButton.offsetHeight);
@@ -166,12 +212,14 @@
     var card = document.createElement("figure");
     var img = document.createElement("img");
     var caption = document.createElement("figcaption");
-    var description = document.createElement("p");
     var index = String(i).padStart(2, "0");
     var fileName = "photo-" + index + ".jpeg";
+    var description = photoDescriptions[fileName] || "Descripcion pendiente para esta foto.";
 
     card.className = "photo-card";
     card.setAttribute("data-photo-name", fileName);
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("role", "button");
     card.style.setProperty("--tilt", tiltValues[(i - 1) % tiltValues.length] + "deg");
     card.style.animationDelay = ((i - 1) * 0.08).toFixed(2) + "s";
 
@@ -180,12 +228,25 @@
     img.loading = "lazy";
     caption.className = "photo-name";
     caption.textContent = fileName;
-    description.className = "photo-description";
-    description.textContent = photoDescriptions[fileName] || "Descripcion pendiente para esta foto.";
 
     card.appendChild(img);
     card.appendChild(caption);
-    card.appendChild(description);
+
+    (function bindPhotoEvents(photoCard, currentName, currentDescription) {
+      var imagePath = "photos/" + currentName;
+
+      photoCard.addEventListener("click", function () {
+        openPhotoModal(currentName, imagePath, currentDescription);
+      });
+
+      photoCard.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openPhotoModal(currentName, imagePath, currentDescription);
+        }
+      });
+    })(card, fileName, description);
+
     collage.appendChild(card);
   }
 
