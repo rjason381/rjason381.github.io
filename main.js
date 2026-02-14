@@ -50,7 +50,7 @@
   var musicReady = false;
   var musicPlaying = false;
   var wantsMusic = true;
-  var autoMusicTriggered = true;
+  var autoMusicTriggered = false;
   var userMusicChoice = false;
 
   if (
@@ -155,6 +155,21 @@
     syncMusicPlayback();
   });
   updateMusicButton();
+
+  function setupFirstGestureMusicKickstart() {
+    function handleFirstGesture() {
+      triggerAutoMusic();
+      document.removeEventListener("pointerdown", handleFirstGesture);
+      document.removeEventListener("keydown", handleFirstGesture);
+      document.removeEventListener("touchstart", handleFirstGesture);
+    }
+
+    document.addEventListener("pointerdown", handleFirstGesture, { passive: true });
+    document.addEventListener("keydown", handleFirstGesture);
+    document.addEventListener("touchstart", handleFirstGesture, { passive: true });
+  }
+
+  setupFirstGestureMusicKickstart();
 
   function openPhotoModal(fileName, imageSrc, description) {
     modalPhotoImage.src = imageSrc;
