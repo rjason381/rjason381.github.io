@@ -60,6 +60,7 @@
       <header class="gallery-header">
         <h2>Nuestro collage</h2>
         <p>Todos estos momentos son especiales para mi.</p>
+        <p class="view-counter">Fotos vistas: <strong id="viewedCounter">0</strong>/15</p>
       </header>
       <div id="photoCollage" class="photo-collage"></div>
     </section>
@@ -74,6 +75,18 @@
       <p id="modalPhotoDescription" class="modal-photo-description"></p>
     </div>
   </div>
+
+  <div id="finalPhotoModal" class="final-photo-modal" aria-hidden="true" hidden>
+    <div class="final-photo-backdrop" data-close-final></div>
+    <div class="final-photo-card" role="dialog" aria-modal="true" aria-labelledby="finalPhotoTitle">
+      <button id="closeFinalModal" class="modal-close final-close" type="button" aria-label="Cerrar sorpresa">Cerrar</button>
+      <p id="finalPhotoTitle" class="final-photo-title">Sorpresa final</p>
+      <img id="finalPhotoImage" class="modal-photo-image" src="" alt="">
+      <p id="finalPhotoText" class="modal-photo-description">Viste todas las fotos. Te mereces esta sorpresa.</p>
+    </div>
+  </div>
+
+  <div id="heartRain" class="heart-rain" aria-hidden="true" hidden></div>
 
   <script src="https://w.soundcloud.com/player/api.js"></script>
   <script src="main.js"></script>

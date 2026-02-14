@@ -266,6 +266,13 @@ body::before {
   font-size: 1.03rem;
 }
 
+.view-counter {
+  margin: 0.55rem 0 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffeef3;
+}
+
 .photo-collage {
   width: min(1080px, 100%);
   margin: 0 auto;
@@ -382,6 +389,73 @@ body::before {
   text-align: center;
 }
 
+.final-photo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 145;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.final-photo-modal[hidden] {
+  display: none;
+}
+
+.final-photo-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(78, 14, 37, 0.75);
+  backdrop-filter: blur(4px);
+}
+
+.final-photo-card {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 760px);
+  max-height: min(88vh, 940px);
+  overflow: auto;
+  border-radius: 22px;
+  padding: 1rem 1rem 1.2rem;
+  background: #fff7f9;
+  border: 2px solid rgba(255, 186, 207, 0.82);
+  box-shadow: 0 24px 48px rgba(52, 11, 24, 0.4);
+}
+
+.final-photo-title {
+  margin: 0.25rem 0 0.45rem;
+  text-align: center;
+  font-family: "Dancing Script", "Segoe Script", cursive;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  color: #a01c45;
+}
+
+.modal-close.final-close {
+  background: #ad1f47;
+}
+
+.heart-rain {
+  position: fixed;
+  inset: 0;
+  z-index: 138;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.heart-rain[hidden] {
+  display: none;
+}
+
+.heart-drop {
+  position: absolute;
+  top: -12vh;
+  color: rgba(255, 240, 246, 0.92);
+  text-shadow: 0 5px 11px rgba(116, 13, 46, 0.32);
+  animation-name: heartFall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
 .hearts {
   position: fixed;
   inset: 0;
@@ -453,6 +527,20 @@ body.show-gallery .gallery-view {
   }
   to {
     transform: scale(1);
+  }
+}
+
+@keyframes heartFall {
+  0% {
+    transform: translateY(-12vh) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(118vh) rotate(320deg);
+    opacity: 0;
   }
 }
 

@@ -1,8 +1,13 @@
 (function () {
   var totalPhotos = 15;
+  var finalPhotoFile = "photo-16.jpg";
   var targetScore = 6;
   var score = 0;
   var unlocked = false;
+  var viewedCount = 0;
+  var viewedPhotos = {};
+  var finalRevealed = false;
+  var heartRainTimer = null;
   var tiltValues = [-2, 1.8, -1.4, 2.2, -2.6, 1.1, -1.9, 2.4];
   var photoDescriptions = {
     "photo-01.jpeg": "Nuestra salida a los jueguitosss, recuerdas? Estabas poco malita, incluso en el carriwis, te sentias super mal, pero todo salio super bien :3",
@@ -23,6 +28,7 @@
   var collage = document.getElementById("photoCollage");
   var enterButton = document.getElementById("enterButton");
   var scoreValue = document.getElementById("scoreValue");
+  var viewedCounter = document.getElementById("viewedCounter");
   var gameArea = document.getElementById("gameArea");
   var heartButton = document.getElementById("heartButton");
   var musicButton = document.getElementById("musicButton");
@@ -35,6 +41,11 @@
   var modalPhotoImage = document.getElementById("modalPhotoImage");
   var modalPhotoName = document.getElementById("modalPhotoName");
   var modalPhotoDescription = document.getElementById("modalPhotoDescription");
+  var finalPhotoModal = document.getElementById("finalPhotoModal");
+  var closeFinalModal = document.getElementById("closeFinalModal");
+  var finalPhotoImage = document.getElementById("finalPhotoImage");
+  var finalPhotoText = document.getElementById("finalPhotoText");
+  var heartRain = document.getElementById("heartRain");
   var scWidget = null;
   var musicReady = false;
   var musicPlaying = false;
@@ -46,6 +57,7 @@
     !collage ||
     !enterButton ||
     !scoreValue ||
+    !viewedCounter ||
     !gameArea ||
     !heartButton ||
     !musicButton ||
@@ -57,9 +69,28 @@
     !closePhotoModal ||
     !modalPhotoImage ||
     !modalPhotoName ||
-    !modalPhotoDescription
+    !modalPhotoDescription ||
+    !finalPhotoModal ||
+    !closeFinalModal ||
+    !finalPhotoImage ||
+    !finalPhotoText ||
+    !heartRain
   ) {
     return;
+  }
+
+  function refreshBodyModalState() {
+    var hasOpenModal = !photoModal.hidden || !finalPhotoModal.hidden;
+    if (hasOpenModal) {
+      document.body.classList.add("modal-open");
+      return;
+    }
+
+    document.body.classList.remove("modal-open");
+  }
+
+  function updateViewedCounter() {
+    viewedCounter.textContent = String(viewedCount);
   }
 
   function updateMusicButton() {
@@ -133,7 +164,7 @@
     modalPhotoDescription.textContent = description;
     photoModal.hidden = false;
     photoModal.setAttribute("aria-hidden", "false");
-    document.body.classList.add("modal-open");
+    refreshBodyModalState();
   }
 
   function closeOpenedPhotoModal() {
@@ -143,9 +174,84 @@
 
     photoModal.hidden = true;
     photoModal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("modal-open");
     modalPhotoImage.src = "";
     modalPhotoImage.alt = "";
+    refreshBodyModalState();
+  }
+
+  function stopHeartRain() {
+    if (heartRainTimer) {
+      window.clearTimeout(heartRainTimer);
+      heartRainTimer = null;
+    }
+
+    heartRain.innerHTML = "";
+    heartRain.hidden = true;
+  }
+
+  function startHeartRain() {
+    stopHeartRain();
+    heartRain.hidden = false;
+
+    for (var i = 0; i < 95; i += 1) {
+      var drop = document.createElement("span");
+      drop.className = "heart-drop";
+      drop.textContent = String.fromCharCode(10084);
+      drop.style.left = (Math.random() * 100).toFixed(2) + "%";
+      drop.style.animationDelay = (Math.random() * 1.7).toFixed(2) + "s";
+      drop.style.animationDuration = (3 + Math.random() * 2.6).toFixed(2) + "s";
+      drop.style.fontSize = (0.8 + Math.random() * 1.4).toFixed(2) + "rem";
+      heartRain.appendChild(drop);
+    }
+
+    heartRainTimer = window.setTimeout(stopHeartRain, 7600);
+  }
+
+  function openFinalPhotoModal() {
+    finalPhotoImage.src = "photos/" + finalPhotoFile;
+    finalPhotoImage.alt = "Foto sorpresa final";
+    finalPhotoText.textContent = "Viste todas las fotos. Aqui tienes la nueva foto sorpresa.";
+    finalPhotoModal.hidden = false;
+    finalPhotoModal.setAttribute("aria-hidden", "false");
+    startHeartRain();
+    refreshBodyModalState();
+  }
+
+  function closeFinalPhotoModal() {
+    if (finalPhotoModal.hidden) {
+      return;
+    }
+
+    finalPhotoModal.hidden = true;
+    finalPhotoModal.setAttribute("aria-hidden", "true");
+    finalPhotoImage.src = "";
+    finalPhotoImage.alt = "";
+    stopHeartRain();
+    refreshBodyModalState();
+  }
+
+  function triggerFinalReveal() {
+    if (finalRevealed) {
+      return;
+    }
+
+    finalRevealed = true;
+    closeOpenedPhotoModal();
+    openFinalPhotoModal();
+  }
+
+  function markPhotoViewed(fileName) {
+    if (viewedPhotos[fileName]) {
+      return;
+    }
+
+    viewedPhotos[fileName] = true;
+    viewedCount += 1;
+    updateViewedCounter();
+
+    if (viewedCount === totalPhotos) {
+      window.setTimeout(triggerFinalReveal, 320);
+    }
   }
 
   closePhotoModal.addEventListener("click", closeOpenedPhotoModal);
@@ -156,10 +262,29 @@
     }
   });
 
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-      closeOpenedPhotoModal();
+  closeFinalModal.addEventListener("click", closeFinalPhotoModal);
+
+  finalPhotoModal.addEventListener("click", function (event) {
+    if (event.target.hasAttribute("data-close-final")) {
+      closeFinalPhotoModal();
     }
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Escape") {
+      return;
+    }
+
+    if (!finalPhotoModal.hidden) {
+      closeFinalPhotoModal();
+      return;
+    }
+
+    closeOpenedPhotoModal();
+  });
+
+  finalPhotoImage.addEventListener("error", function () {
+    finalPhotoText.textContent = "No pude cargar la foto final. Verifica que exista photos/" + finalPhotoFile + ".";
   });
 
   function moveHeart() {
@@ -207,6 +332,7 @@
 
   window.addEventListener("resize", moveHeart);
   moveHeart();
+  updateViewedCounter();
 
   for (var i = 1; i <= totalPhotos; i += 1) {
     var card = document.createElement("figure");
@@ -236,12 +362,14 @@
       var imagePath = "photos/" + currentName;
 
       photoCard.addEventListener("click", function () {
+        markPhotoViewed(currentName);
         openPhotoModal(currentName, imagePath, currentDescription);
       });
 
       photoCard.addEventListener("keydown", function (event) {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
+          markPhotoViewed(currentName);
           openPhotoModal(currentName, imagePath, currentDescription);
         }
       });
