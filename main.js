@@ -4,6 +4,22 @@
   var score = 0;
   var unlocked = false;
   var tiltValues = [-2, 1.8, -1.4, 2.2, -2.6, 1.1, -1.9, 2.4];
+  var photoDescriptions = {
+    "photo-01.jpeg": "Nuestra salida a los jueguitosss, recuerdas? Estabas poco malita, incluso en el carriwis, te sentias super mal, pero todo salio super bien :3",
+    "photo-02.jpeg": "Ya con pancita :3",
+    "photo-03.jpeg": "En Cafe Paris, con nauseas y todo pero hermosaaa siempree",
+    "photo-04.jpeg": "El diaaaaa oficialll!!!!",
+    "photo-05.jpeg": "Enfermo, pero con mi amorcito siempreee, Rusticaa",
+    "photo-06.jpeg": "Entrega de mi titulo, gracias por estar en ese momento tan especial",
+    "photo-07.jpeg": "Jueguitos denuevooo!!",
+    "photo-08.jpeg": "Jueguitoss otra vezz",
+    "photo-09.jpeg": "Y otraaa vezz",
+    "photo-10.jpeg": "En camino al nidito de amorr :v",
+    "photo-11.jpeg": "Escapadita al sauna para la relajacion",
+    "photo-12.jpeg": "Saunita x2",
+    "photo-13.jpeg": "Corazon Corazon Cara con ojos de corazon enamorado",
+    "photo-14.jpeg": "Corazon Corazon Cara con ojos de corazon enamorado"
+  };
   var collage = document.getElementById("photoCollage");
   var enterButton = document.getElementById("enterButton");
   var scoreValue = document.getElementById("scoreValue");
@@ -74,6 +90,7 @@
     var card = document.createElement("figure");
     var img = document.createElement("img");
     var caption = document.createElement("figcaption");
+    var description = document.createElement("p");
     var index = String(i).padStart(2, "0");
     var fileName = "photo-" + index + ".jpeg";
 
@@ -87,9 +104,12 @@
     img.loading = "lazy";
     caption.className = "photo-name";
     caption.textContent = fileName;
+    description.className = "photo-description";
+    description.textContent = photoDescriptions[fileName] || "Descripcion pendiente para esta foto.";
 
     card.appendChild(img);
     card.appendChild(caption);
+    card.appendChild(description);
     collage.appendChild(card);
   }
 
