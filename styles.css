@@ -168,61 +168,83 @@ body::before {
 
 .game-status {
   margin: 0;
-  min-height: 2rem;
+  min-height: 2.1rem;
   font-size: 0.95rem;
   line-height: 1.35;
   color: #7a3247;
 }
 
-.contra-stage {
-  margin-top: 0.65rem;
-  position: relative;
-}
-
-.contra-canvas {
-  width: 100%;
-  display: block;
-  border-radius: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.82);
-  background: linear-gradient(180deg, #2c1034 0%, #44194f 60%, #221028 100%);
-  box-shadow: inset 0 0 0 1px rgba(255, 219, 233, 0.25), 0 10px 22px rgba(92, 16, 45, 0.3);
-}
-
-.boss-life {
-  position: absolute;
-  left: 0.65rem;
-  right: 0.65rem;
-  bottom: 0.55rem;
+.memory-board {
+  margin-top: 0.68rem;
+  width: min(500px, 100%);
   display: grid;
-  gap: 0.28rem;
-  padding: 0.35rem 0.48rem;
-  border-radius: 10px;
-  background: rgba(36, 10, 38, 0.6);
-  backdrop-filter: blur(2px);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.52rem;
 }
 
-.boss-life span {
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #ffd3e0;
-}
-
-.boss-life-track {
-  height: 9px;
-  border-radius: 999px;
+.memory-card {
+  position: relative;
+  border: none;
+  border-radius: 14px;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: rgba(255, 214, 224, 0.25);
+  padding: 0;
+  cursor: pointer;
+  background: linear-gradient(145deg, #ffdce8, #ff9dbb);
+  box-shadow: 0 9px 18px rgba(108, 17, 46, 0.24);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
 }
 
-.boss-life-bar {
+.memory-card:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px rgba(108, 17, 46, 0.3);
+}
+
+.memory-card:focus-visible {
+  outline: 3px solid rgba(193, 36, 81, 0.45);
+  outline-offset: 2px;
+}
+
+.memory-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
   height: 100%;
-  width: 0;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #ff8bac 0%, #ff446f 100%);
-  transition: width 0.2s ease;
-  animation: pulseBoss 1.4s ease-in-out infinite;
+  object-fit: cover;
+  transition: filter 0.22s ease, transform 0.22s ease;
+}
+
+.memory-cover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  color: #ffeef4;
+  text-shadow: 0 4px 10px rgba(98, 14, 40, 0.32);
+  background:
+    linear-gradient(145deg, rgba(173, 34, 79, 0.96), rgba(121, 23, 58, 0.92)),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0 7px, rgba(255, 255, 255, 0.02) 7px 14px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.memory-card.revealed .memory-cover,
+.memory-card.matched .memory-cover {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.memory-card:not(.revealed):not(.matched) .memory-photo {
+  filter: brightness(0.72) blur(1.4px);
+  transform: scale(1.04);
+}
+
+.memory-card.matched {
+  box-shadow: 0 0 0 3px rgba(191, 255, 214, 0.85), 0 10px 20px rgba(25, 132, 73, 0.26);
+}
+
+.memory-card:disabled {
+  cursor: default;
 }
 
 .game-start {
@@ -248,80 +270,6 @@ body::before {
   opacity: 0.75;
   cursor: default;
   box-shadow: none;
-}
-
-.touch-controls {
-  display: none;
-  margin-top: 0.6rem;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 0.5rem;
-  align-items: stretch;
-}
-
-.touch-pad {
-  position: relative;
-  min-height: 98px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 223, 235, 0.55);
-  background: linear-gradient(145deg, rgba(141, 35, 72, 0.9), rgba(103, 22, 56, 0.95));
-  box-shadow: inset 0 0 0 1px rgba(255, 210, 227, 0.22), 0 8px 16px rgba(72, 9, 31, 0.35);
-  touch-action: none;
-}
-
-.touch-pad.active {
-  filter: brightness(1.08);
-}
-
-.touch-pad-hint {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  color: rgba(255, 231, 240, 0.85);
-  text-transform: uppercase;
-  pointer-events: none;
-}
-
-.touch-pad-dot {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 26px;
-  height: 26px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fff7fb 0%, #ff9ec0 48%, #d84b7d 100%);
-  box-shadow: 0 4px 12px rgba(47, 3, 21, 0.4);
-  pointer-events: none;
-  transition: transform 0.08s ease;
-}
-
-.touch-btn {
-  border: none;
-  border-radius: 12px;
-  min-height: 98px;
-  padding: 0.6rem 0.55rem;
-  font-size: 1rem;
-  font-weight: 800;
-  color: #fef3f7;
-  background: linear-gradient(145deg, #a62f56, #7a1d42);
-  box-shadow: 0 8px 16px rgba(89, 13, 39, 0.35);
-  touch-action: none;
-}
-
-.touch-btn.fire {
-  font-size: 0.9rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  background: linear-gradient(145deg, #cf3466, #9f224d);
-}
-
-.touch-btn.active {
-  transform: translateY(1px) scale(0.98);
-  filter: brightness(1.08);
 }
 
 .game-hint {
@@ -671,16 +619,6 @@ body.show-gallery .gallery-view {
   }
 }
 
-@keyframes pulseBoss {
-  0%,
-  100% {
-    filter: brightness(1);
-  }
-  50% {
-    filter: brightness(1.15);
-  }
-}
-
 @keyframes heartFall {
   0% {
     transform: translateY(-12vh) rotate(0deg);
@@ -710,8 +648,8 @@ body.show-gallery .gallery-view {
     column-gap: 0.75rem;
   }
 
-  .touch-controls {
-    display: grid;
+  .memory-board {
+    gap: 0.45rem;
   }
 }
 
@@ -737,34 +675,13 @@ body.show-gallery .gallery-view {
     padding: 0.35rem 0.4rem;
   }
 
-  .boss-life {
-    left: 0.45rem;
-    right: 0.45rem;
-    bottom: 0.45rem;
+  .memory-board {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.34rem;
   }
 
-  .touch-controls {
-    grid-template-columns: 1fr;
-    gap: 0.42rem;
-  }
-
-  .touch-pad {
-    min-height: 88px;
-  }
-
-  .touch-pad-dot {
-    width: 22px;
-    height: 22px;
-  }
-
-  .touch-btn {
-    min-height: 56px;
-    padding: 0.55rem 0.4rem;
-    font-size: 0.92rem;
-  }
-
-  .touch-btn.fire {
-    font-size: 0.8rem;
+  .memory-cover {
+    font-size: 1.08rem;
   }
 
   .game-start {

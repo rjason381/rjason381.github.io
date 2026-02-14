@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260214c">
+  <link rel="stylesheet" href="styles.css?v=20260214d">
 </head>
 <body>
   <div class="hearts" aria-hidden="true">
@@ -41,34 +41,19 @@
     <section class="welcome-card" id="welcome">
       <p class="date-tag">14 de febrero</p>
       <h1>Mini juego de amor</h1>
-      <p class="subtitle">Completa una mision estilo Contra para desbloquear el boton de aceptar.</p>
+      <p class="subtitle">Memoriza las fotos, encuentra las parejas y desbloquea el boton de aceptar.</p>
 
       <div class="game-panel">
         <div class="game-stats">
-          <p>Nivel: <strong id="levelValue">1</strong></p>
-          <p>Vida: <strong id="hpValue">5</strong></p>
-          <p>Puntaje: <strong id="scoreValue">0</strong></p>
+          <p>Parejas: <strong id="pairsValue">0</strong>/<strong id="pairsTargetValue">15</strong></p>
+          <p>Movimientos: <strong id="movesValue">0</strong></p>
+          <p>Vista: <strong id="previewValue">--</strong></p>
         </div>
-        <p id="gameStatus" class="game-status">Inicia la mision y derrota al jefe final.</p>
-        <div class="contra-stage">
-          <canvas id="contraCanvas" class="contra-canvas" width="560" height="300" aria-label="Minijuego estilo Contra"></canvas>
-          <div id="bossLife" class="boss-life" hidden>
-            <span>Jefe final</span>
-            <div class="boss-life-track">
-              <div id="bossLifeBar" class="boss-life-bar"></div>
-            </div>
-          </div>
-        </div>
-        <button id="startGameButton" class="game-start" type="button">Iniciar mision</button>
-        <div id="touchControls" class="touch-controls" aria-label="Controles tactiles">
-          <div id="touchPad" class="touch-pad" aria-label="Pad de movimiento tactil">
-            <span class="touch-pad-hint">Mueve aqui</span>
-            <span id="touchPadDot" class="touch-pad-dot" aria-hidden="true"></span>
-          </div>
-          <button class="touch-btn fire" data-control="fire" type="button" aria-label="Disparar">Disparo</button>
-        </div>
+        <p id="gameStatus" class="game-status">Pulsa iniciar. Veras todas las fotos por unos segundos antes de ocultarse.</p>
+        <div id="memoryBoard" class="memory-board" aria-label="Tablero de parejas"></div>
+        <button id="startGameButton" class="game-start" type="button">Iniciar reto</button>
       </div>
-      <p class="game-hint">PC: WASD o flechas para mover, Espacio para disparar. Movil: arrastra en el pad para mover y usa Disparo.</p>
+      <p class="game-hint">Haz match de todas las parejas para desbloquear Aceptar y entrar al collage.</p>
 
       <p class="question">Quieres ser mi san valentin?</p>
       <button id="enterButton" type="button" disabled>Aceptar</button>
@@ -108,6 +93,6 @@
   <div id="heartRain" class="heart-rain" aria-hidden="true" hidden></div>
 
   <script src="https://w.soundcloud.com/player/api.js"></script>
-  <script src="main.js?v=20260214c"></script>
+  <script src="main.js?v=20260214d"></script>
 </body>
 </html>

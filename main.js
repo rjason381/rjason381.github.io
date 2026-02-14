@@ -1,33 +1,29 @@
 (function () {
   var totalPhotos = 15;
   var finalPhotoFile = "photo-16.jpg";
-  var playerMaxHp = 5;
-  var bossUnlockScore = 36;
-  var canvasWidth = 560;
-  var canvasHeight = 300;
-  var winLoveMessage = "Te amo mi vida, gracias  por todo mi amor, es un pequeño presente, lo que se hacer, espero te guste, nuestro primer 14 con nuestro hijo, ya que el anterior aun estabamos sin Elric jajaja";
+  var memorySourcePhotos = [];
+  var memoryPreviewSeconds = 11;
+  var winLoveMessage =
+    "Te amo mi vida, gracias por todo mi amor, es un pequeno presente, lo que se hacer, espero te guste, nuestro primer 14 con nuestro hijo, ya que el anterior aun estabamos sin Elric jajaja";
+
   var unlocked = false;
+  var pairsFound = 0;
+  var movesCount = 0;
+  var previewRemaining = 0;
+  var gameRunning = false;
+  var boardLocked = true;
+  var previewActive = false;
+  var memoryCards = [];
+  var firstPickIndex = -1;
+  var secondPickIndex = -1;
+  var previewInterval = null;
+  var hideMismatchTimer = null;
+
   var viewedCount = 0;
   var viewedPhotos = {};
   var finalRevealed = false;
   var finalRevealPending = false;
   var heartRainTimer = null;
-  var missionState = "idle";
-  var missionLevel = 1;
-  var missionScore = 0;
-  var player = null;
-  var enemies = [];
-  var bullets = [];
-  var enemyBullets = [];
-  var particles = [];
-  var boss = null;
-  var inputState = { up: false, down: false, left: false, right: false, fire: false };
-  var gameLoopId = null;
-  var lastFrameTime = 0;
-  var worldScroll = 0;
-  var spawnTimer = 0;
-  var playerShotTimer = 0;
-  var bossShotTimer = 0;
   var tiltValues = [-2, 1.8, -1.4, 2.2, -2.6, 1.1, -1.9, 2.4];
   var photoDescriptions = {
     "photo-01.jpeg": "Nuestra salida a los jueguitosss, recuerdas? Estabas poco malita, incluso en el carriwis, te sentias super mal, pero todo salio super bien :3",
@@ -45,20 +41,17 @@
     "photo-13.jpeg": "Corazon Corazon Cara con ojos de corazon enamorado",
     "photo-14.jpeg": "Corazon Corazon Cara con ojos de corazon enamorado"
   };
+
   var collage = document.getElementById("photoCollage");
   var enterButton = document.getElementById("enterButton");
   var viewedCounter = document.getElementById("viewedCounter");
-  var levelValue = document.getElementById("levelValue");
-  var hpValue = document.getElementById("hpValue");
-  var scoreValue = document.getElementById("scoreValue");
+  var pairsValue = document.getElementById("pairsValue");
+  var pairsTargetValue = document.getElementById("pairsTargetValue");
+  var movesValue = document.getElementById("movesValue");
+  var previewValue = document.getElementById("previewValue");
   var gameStatus = document.getElementById("gameStatus");
-  var contraCanvas = document.getElementById("contraCanvas");
+  var memoryBoard = document.getElementById("memoryBoard");
   var startGameButton = document.getElementById("startGameButton");
-  var touchControls = document.getElementById("touchControls");
-  var touchPad = document.getElementById("touchPad");
-  var touchPadDot = document.getElementById("touchPadDot");
-  var bossLife = document.getElementById("bossLife");
-  var bossLifeBar = document.getElementById("bossLifeBar");
   var musicButton = document.getElementById("musicButton");
   var scPlayer = document.getElementById("scPlayer");
   var unlockMessage = document.getElementById("unlockMessage");
@@ -74,29 +67,24 @@
   var finalPhotoImage = document.getElementById("finalPhotoImage");
   var finalPhotoText = document.getElementById("finalPhotoText");
   var heartRain = document.getElementById("heartRain");
+
   var scWidget = null;
   var musicReady = false;
   var wantsMusic = true;
   var autoMusicTriggered = false;
   var userMusicChoice = false;
-  var gameContext = null;
-  var activeTouchPadPointerId = null;
 
   if (
     !collage ||
     !enterButton ||
     !viewedCounter ||
-    !levelValue ||
-    !hpValue ||
-    !scoreValue ||
+    !pairsValue ||
+    !pairsTargetValue ||
+    !movesValue ||
+    !previewValue ||
     !gameStatus ||
-    !contraCanvas ||
+    !memoryBoard ||
     !startGameButton ||
-    !touchControls ||
-    !touchPad ||
-    !touchPadDot ||
-    !bossLife ||
-    !bossLifeBar ||
     !musicButton ||
     !scPlayer ||
     !unlockMessage ||
@@ -115,6 +103,12 @@
   ) {
     return;
   }
+
+  for (var photoIndex = 1; photoIndex <= totalPhotos; photoIndex += 1) {
+    memorySourcePhotos.push("photo-" + String(photoIndex).padStart(2, "0") + ".jpeg");
+  }
+
+  pairsTargetValue.textContent = String(memorySourcePhotos.length);
 
   function refreshBodyModalState() {
     var hasOpenModal = !photoModal.hidden || !finalPhotoModal.hidden;
@@ -336,200 +330,171 @@
     finalPhotoText.textContent = "No pude cargar la foto final. Verifica que exista photos/" + finalPhotoFile + ".";
   });
 
-  function clamp(value, min, max) {
-    return Math.max(min, Math.min(max, value));
-  }
-
   function setGameStatus(message) {
     gameStatus.textContent = message;
   }
 
-  function clearInputState() {
-    inputState.up = false;
-    inputState.down = false;
-    inputState.left = false;
-    inputState.right = false;
-    inputState.fire = false;
-    activeTouchPadPointerId = null;
-
-    var buttons = touchControls.querySelectorAll(".touch-btn.active");
-    for (var i = 0; i < buttons.length; i += 1) {
-      buttons[i].classList.remove("active");
+  function clearPreviewInterval() {
+    if (!previewInterval) {
+      return;
     }
 
-    touchPad.classList.remove("active");
-    touchPadDot.style.transform = "translate(-50%, -50%)";
+    window.clearInterval(previewInterval);
+    previewInterval = null;
   }
 
-  function clearDirectionalInput() {
-    inputState.up = false;
-    inputState.down = false;
-    inputState.left = false;
-    inputState.right = false;
+  function clearHideMismatchTimer() {
+    if (!hideMismatchTimer) {
+      return;
+    }
+
+    window.clearTimeout(hideMismatchTimer);
+    hideMismatchTimer = null;
   }
 
   function updateGameStats() {
-    levelValue.textContent = String(missionLevel);
-    hpValue.textContent = String(player ? Math.max(player.hp, 0) : playerMaxHp);
-    scoreValue.textContent = String(missionScore);
+    pairsValue.textContent = String(pairsFound);
+    movesValue.textContent = String(movesCount);
+    previewValue.textContent = previewActive ? String(Math.max(previewRemaining, 0)) : "--";
+  }
 
-    if (boss && missionState === "running") {
-      bossLife.hidden = false;
-      bossLifeBar.style.width = ((Math.max(0, boss.hp) / boss.maxHp) * 100).toFixed(2) + "%";
+  function shuffleArray(items) {
+    for (var i = items.length - 1; i > 0; i -= 1) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = items[i];
+      items[i] = items[j];
+      items[j] = temp;
+    }
+  }
+
+  function createMemoryDeck() {
+    var deck = [];
+
+    for (var i = 0; i < memorySourcePhotos.length; i += 1) {
+      var fileName = memorySourcePhotos[i];
+      deck.push({ pairKey: fileName, fileName: fileName, revealed: false, matched: false, button: null });
+      deck.push({ pairKey: fileName, fileName: fileName, revealed: false, matched: false, button: null });
+    }
+
+    shuffleArray(deck);
+    return deck;
+  }
+
+  function applyCardVisual(card) {
+    if (!card || !card.button) {
       return;
     }
 
-    bossLife.hidden = true;
-    bossLifeBar.style.width = "0%";
+    card.button.classList.toggle("revealed", !!card.revealed);
+    card.button.classList.toggle("matched", !!card.matched);
+    card.button.disabled = card.matched || !gameRunning || boardLocked;
   }
 
-  function stopMissionLoop() {
-    if (gameLoopId) {
-      window.cancelAnimationFrame(gameLoopId);
-      gameLoopId = null;
+  function refreshBoardInteractivity() {
+    for (var i = 0; i < memoryCards.length; i += 1) {
+      applyCardVisual(memoryCards[i]);
     }
   }
 
-  function createParticleBurst(x, y, color, count, spread, speedBase) {
-    for (var i = 0; i < count; i += 1) {
-      var angle = Math.random() * Math.PI * 2;
-      var speed = speedBase * (0.45 + Math.random() * 0.8);
-      particles.push({
-        x: x,
-        y: y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        life: 0.2 + Math.random() * 0.38,
-        age: 0,
-        size: 2 + Math.random() * spread,
-        color: color
-      });
+  function revealCard(index, shouldReveal) {
+    var card = memoryCards[index];
+    if (!card) {
+      return;
+    }
+
+    card.revealed = shouldReveal;
+    applyCardVisual(card);
+  }
+
+  function buildBoard() {
+    memoryCards = createMemoryDeck();
+    memoryBoard.innerHTML = "";
+
+    for (var i = 0; i < memoryCards.length; i += 1) {
+      var card = memoryCards[i];
+      var button = document.createElement("button");
+      var image = document.createElement("img");
+      var cover = document.createElement("span");
+
+      button.type = "button";
+      button.className = "memory-card";
+      button.setAttribute("aria-label", "Carta " + (i + 1));
+      button.setAttribute("data-card-index", String(i));
+
+      image.src = "photos/" + card.fileName;
+      image.alt = "Carta de memoria";
+      image.loading = "lazy";
+      image.className = "memory-photo";
+
+      cover.className = "memory-cover";
+      cover.textContent = String.fromCharCode(10084);
+
+      button.appendChild(image);
+      button.appendChild(cover);
+
+      (function bindCardClick(cardIndex) {
+        button.addEventListener("click", function () {
+          handleMemoryCardClick(cardIndex);
+        });
+      })(i);
+
+      memoryBoard.appendChild(button);
+      card.button = button;
+      card.revealed = false;
+      card.matched = false;
+      applyCardVisual(card);
     }
   }
 
-  function resetMissionRuntime() {
-    missionLevel = 1;
-    missionScore = 0;
-    player = {
-      x: 46,
-      y: canvasHeight / 2 - 16,
-      w: 28,
-      h: 28,
-      hp: playerMaxHp,
-      speed: 230,
-      invulnerableUntil: 0
-    };
-    enemies = [];
-    bullets = [];
-    enemyBullets = [];
-    particles = [];
-    boss = null;
-    spawnTimer = 0.72;
-    playerShotTimer = 0;
-    bossShotTimer = 1.2;
-    worldScroll = 0;
-    lastFrameTime = 0;
+  function stopMemoryTimers() {
+    clearPreviewInterval();
+    clearHideMismatchTimer();
+  }
+
+  function beginMatchPhase() {
+    previewActive = false;
+    previewRemaining = 0;
+    gameRunning = true;
+    boardLocked = false;
+
+    for (var i = 0; i < memoryCards.length; i += 1) {
+      if (!memoryCards[i].matched) {
+        memoryCards[i].revealed = false;
+      }
+    }
+
+    setGameStatus("Ahora encuentra todas las parejas.");
     updateGameStats();
+    refreshBoardInteractivity();
   }
 
-  function spawnEnemyBullet(x, y, vx, vy, size, color) {
-    enemyBullets.push({
-      x: x,
-      y: y,
-      w: size,
-      h: size,
-      vx: vx,
-      vy: vy,
-      color: color
-    });
-  }
+  function startPreviewPhase() {
+    previewActive = true;
+    gameRunning = false;
+    boardLocked = true;
+    previewRemaining = memoryPreviewSeconds;
 
-  function spawnEnemy() {
-    if (boss) {
-      return;
+    for (var i = 0; i < memoryCards.length; i += 1) {
+      memoryCards[i].revealed = true;
+      applyCardVisual(memoryCards[i]);
     }
 
-    var eliteChance = missionScore > 18 ? 0.42 : 0.2;
-    var isElite = Math.random() < eliteChance;
-    var size = isElite ? 30 : 24;
-    enemies.push({
-      x: canvasWidth + 18 + Math.random() * 50,
-      y: 34 + Math.random() * (canvasHeight - 68),
-      w: size,
-      h: size,
-      hp: isElite ? 3 : 2,
-      speed: (isElite ? 145 : 118) + Math.random() * 40,
-      points: isElite ? 3 : 2,
-      drift: 30 + Math.random() * 28,
-      phase: Math.random() * Math.PI * 2,
-      shotCooldown: 0.65 + Math.random() * 1.1,
-      elite: isElite
-    });
-  }
-
-  function spawnBoss() {
-    enemies = [];
-    boss = {
-      x: canvasWidth - 132,
-      y: canvasHeight / 2 - 52,
-      w: 92,
-      h: 92,
-      hp: 84,
-      maxHp: 84,
-      direction: 1,
-      sway: 0
-    };
-    missionLevel = 2;
-    bossShotTimer = 0.9;
-    setGameStatus("Jefe detectado. Esquiva y dispara sin parar.");
-    createParticleBurst(boss.x + boss.w / 2, boss.y + boss.h / 2, "rgba(255, 148, 180, 0.9)", 22, 2.4, 120);
-    updateGameStats();
-  }
-
-  function shootPlayer() {
-    bullets.push({
-      x: player.x + player.w - 2,
-      y: player.y + player.h / 2 - 2,
-      w: 12,
-      h: 4,
-      speed: 470
-    });
-    createParticleBurst(player.x + player.w, player.y + player.h / 2, "rgba(255, 245, 250, 0.92)", 3, 1.1, 80);
-  }
-
-  function intersects(a, b) {
-    return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
-  }
-
-  function failMission(reason) {
-    missionState = "lost";
-    clearInputState();
-    stopMissionLoop();
-    setGameStatus(reason + " Presiona Reiniciar mision.");
-    startGameButton.textContent = "Reiniciar mision";
-    updateGameStats();
-  }
-
-  function damagePlayer(amount) {
-    if (!player || missionState !== "running") {
-      return;
-    }
-
-    var now = window.performance.now();
-    if (now < player.invulnerableUntil) {
-      return;
-    }
-
-    player.hp -= amount;
-    player.invulnerableUntil = now + 780;
-    createParticleBurst(player.x + player.w / 2, player.y + player.h / 2, "rgba(255, 214, 228, 0.9)", 10, 1.6, 120);
+    setGameStatus("Memoriza las cartas. Se ocultaran en " + previewRemaining + "s.");
     updateGameStats();
 
-    if (player.hp > 0) {
-      return;
-    }
+    clearPreviewInterval();
+    previewInterval = window.setInterval(function () {
+      previewRemaining -= 1;
 
-    failMission("Mision fallida: te derribaron.");
+      if (previewRemaining <= 0) {
+        clearPreviewInterval();
+        beginMatchPhase();
+        return;
+      }
+
+      setGameStatus("Memoriza las cartas. Se ocultaran en " + previewRemaining + "s.");
+      updateGameStats();
+    }, 1000);
   }
 
   function unlockAccept() {
@@ -538,581 +503,124 @@
     }
 
     unlocked = true;
-    missionState = "won";
-    clearInputState();
-    stopMissionLoop();
-    boss = null;
+    gameRunning = false;
+    boardLocked = true;
+    previewActive = false;
+    stopMemoryTimers();
     updateGameStats();
+    refreshBoardInteractivity();
+
     enterButton.disabled = false;
     unlockMessage.hidden = false;
     unlockMessage.textContent = "Desbloqueado. Presiona Aceptar.";
     loveMessage.hidden = false;
     loveMessage.textContent = winLoveMessage;
-    setGameStatus("Mision completada. Ruta libre para abrir el collage.");
+    setGameStatus("Completaste todas las parejas. Ya puedes entrar al collage.");
     startGameButton.textContent = "Completado";
     startGameButton.disabled = true;
   }
 
-  function winMission() {
-    missionScore += 25;
-    createParticleBurst(canvasWidth - 108, canvasHeight / 2, "rgba(255, 130, 167, 0.92)", 42, 3.1, 180);
+  function handleMemoryCardClick(index) {
+    if (!gameRunning || boardLocked) {
+      return;
+    }
+
+    var currentCard = memoryCards[index];
+    if (!currentCard || currentCard.revealed || currentCard.matched) {
+      return;
+    }
+
+    triggerAutoMusic();
+    revealCard(index, true);
+
+    if (firstPickIndex === -1) {
+      firstPickIndex = index;
+      setGameStatus("Selecciona la segunda carta.");
+      return;
+    }
+
+    if (firstPickIndex === index) {
+      return;
+    }
+
+    secondPickIndex = index;
+    movesCount += 1;
+    boardLocked = true;
     updateGameStats();
-    unlockAccept();
-  }
+    refreshBoardInteractivity();
 
-  function updateParticles(delta) {
-    for (var i = particles.length - 1; i >= 0; i -= 1) {
-      var particle = particles[i];
-      particle.age += delta;
+    var firstCard = memoryCards[firstPickIndex];
+    var secondCard = memoryCards[secondPickIndex];
 
-      if (particle.age >= particle.life) {
-        particles.splice(i, 1);
-        continue;
-      }
+    if (firstCard.pairKey === secondCard.pairKey) {
+      firstCard.matched = true;
+      secondCard.matched = true;
+      pairsFound += 1;
+      updateGameStats();
 
-      particle.x += particle.vx * delta;
-      particle.y += particle.vy * delta;
-      particle.vy += 220 * delta;
-    }
-  }
+      window.setTimeout(function () {
+        firstPickIndex = -1;
+        secondPickIndex = -1;
 
-  function updateMission(delta) {
-    if (missionState !== "running" || !player) {
-      return;
-    }
-
-    worldScroll = (worldScroll + delta * 120) % canvasWidth;
-
-    var axisX = (inputState.right ? 1 : 0) - (inputState.left ? 1 : 0);
-    var axisY = (inputState.down ? 1 : 0) - (inputState.up ? 1 : 0);
-    if (axisX || axisY) {
-      var magnitude = Math.sqrt(axisX * axisX + axisY * axisY) || 1;
-      player.x += (axisX / magnitude) * player.speed * delta;
-      player.y += (axisY / magnitude) * player.speed * delta;
-      player.x = clamp(player.x, 12, canvasWidth * 0.52 - player.w);
-      player.y = clamp(player.y, 14, canvasHeight - player.h - 14);
-    }
-
-    playerShotTimer -= delta;
-    if ((inputState.fire || activeTouchPadPointerId !== null) && playerShotTimer <= 0) {
-      shootPlayer();
-      playerShotTimer = boss ? 0.12 : 0.145;
-    }
-
-    if (!boss) {
-      spawnTimer -= delta;
-      if (spawnTimer <= 0) {
-        spawnEnemy();
-        spawnTimer = 0.62 + Math.random() * 0.55 - Math.min(missionScore / 130, 0.25);
-      }
-
-      if (missionScore >= bossUnlockScore) {
-        spawnBoss();
-      }
-    } else {
-      boss.sway += delta * 2.4;
-      boss.x = canvasWidth - 132 + Math.sin(boss.sway * 0.75) * 10;
-      boss.y += boss.direction * 78 * delta;
-      if (boss.y <= 14) {
-        boss.y = 14;
-        boss.direction = 1;
-      }
-      if (boss.y + boss.h >= canvasHeight - 14) {
-        boss.y = canvasHeight - boss.h - 14;
-        boss.direction = -1;
-      }
-
-      bossShotTimer -= delta;
-      if (bossShotTimer <= 0) {
-        var centerX = boss.x + 8;
-        var centerY = boss.y + boss.h / 2;
-        spawnEnemyBullet(centerX, centerY - 16, -240, -48, 7, "#ff9cb8");
-        spawnEnemyBullet(centerX, centerY, -270, 0, 8, "#ff6f98");
-        spawnEnemyBullet(centerX, centerY + 16, -240, 48, 7, "#ff9cb8");
-        bossShotTimer = 0.7;
-      }
-    }
-
-    for (var bi = bullets.length - 1; bi >= 0; bi -= 1) {
-      var bullet = bullets[bi];
-      bullet.x += bullet.speed * delta;
-
-      if (bullet.x > canvasWidth + 30) {
-        bullets.splice(bi, 1);
-        continue;
-      }
-
-      var consumed = false;
-      for (var ei = enemies.length - 1; ei >= 0; ei -= 1) {
-        var enemy = enemies[ei];
-        if (!intersects(bullet, enemy)) {
-          continue;
+        if (pairsFound >= memorySourcePhotos.length) {
+          unlockAccept();
+          return;
         }
 
-        enemy.hp -= 1;
-        consumed = true;
-        createParticleBurst(bullet.x, bullet.y + 2, "rgba(255, 186, 209, 0.85)", 5, 1.5, 70);
+        boardLocked = false;
+        setGameStatus("Bien. Sigue encontrando parejas.");
+        refreshBoardInteractivity();
+      }, 260);
 
-        if (enemy.hp <= 0) {
-          missionScore += enemy.points;
-          createParticleBurst(enemy.x + enemy.w / 2, enemy.y + enemy.h / 2, "rgba(255, 124, 162, 0.95)", 14, 2.2, 120);
-          enemies.splice(ei, 1);
-          updateGameStats();
-        }
-
-        break;
-      }
-
-      if (!consumed && boss && intersects(bullet, boss)) {
-        consumed = true;
-        boss.hp -= 1;
-        createParticleBurst(bullet.x, bullet.y, "rgba(255, 174, 200, 0.84)", 4, 1.2, 60);
-        updateGameStats();
-
-        if (boss.hp <= 0) {
-          winMission();
-        }
-      }
-
-      if (consumed) {
-        bullets.splice(bi, 1);
-      }
-    }
-
-    for (var i = enemies.length - 1; i >= 0; i -= 1) {
-      var foe = enemies[i];
-      foe.phase += delta * 3.1;
-      foe.x -= foe.speed * delta;
-      foe.y += Math.sin(foe.phase) * foe.drift * delta;
-      foe.y = clamp(foe.y, 16, canvasHeight - foe.h - 16);
-      foe.shotCooldown -= delta;
-
-      if (foe.shotCooldown <= 0 && foe.x > player.x + 24) {
-        var bulletSpeed = foe.elite ? -230 : -200;
-        spawnEnemyBullet(foe.x, foe.y + foe.h / 2 - 3, bulletSpeed, foe.elite ? (Math.random() - 0.5) * 80 : 0, foe.elite ? 7 : 6, foe.elite ? "#ff95b8" : "#ffb7cf");
-        foe.shotCooldown = foe.elite ? 0.68 + Math.random() * 0.68 : 0.92 + Math.random() * 0.9;
-      }
-
-      if (foe.x + foe.w < 0) {
-        enemies.splice(i, 1);
-        continue;
-      }
-
-      if (intersects(foe, player)) {
-        enemies.splice(i, 1);
-        damagePlayer(1);
-        createParticleBurst(foe.x + foe.w / 2, foe.y + foe.h / 2, "rgba(255, 168, 199, 0.94)", 10, 1.9, 100);
-      }
-    }
-
-    for (var eb = enemyBullets.length - 1; eb >= 0; eb -= 1) {
-      var enemyBullet = enemyBullets[eb];
-      enemyBullet.x += enemyBullet.vx * delta;
-      enemyBullet.y += enemyBullet.vy * delta;
-
-      if (
-        enemyBullet.x < -30 ||
-        enemyBullet.x > canvasWidth + 30 ||
-        enemyBullet.y < -30 ||
-        enemyBullet.y > canvasHeight + 30
-      ) {
-        enemyBullets.splice(eb, 1);
-        continue;
-      }
-
-      if (intersects(enemyBullet, player)) {
-        enemyBullets.splice(eb, 1);
-        damagePlayer(1);
-      }
-    }
-
-    if (boss && intersects(boss, player)) {
-      damagePlayer(2);
-    }
-
-    updateParticles(delta);
-  }
-
-  function drawRoundedRect(ctx, x, y, width, height, radius) {
-    var safeRadius = Math.min(radius, width / 2, height / 2);
-    ctx.beginPath();
-    ctx.moveTo(x + safeRadius, y);
-    ctx.lineTo(x + width - safeRadius, y);
-    ctx.quadraticCurveTo(x + width, y, x + width, y + safeRadius);
-    ctx.lineTo(x + width, y + height - safeRadius);
-    ctx.quadraticCurveTo(x + width, y + height, x + width - safeRadius, y + height);
-    ctx.lineTo(x + safeRadius, y + height);
-    ctx.quadraticCurveTo(x, y + height, x, y + height - safeRadius);
-    ctx.lineTo(x, y + safeRadius);
-    ctx.quadraticCurveTo(x, y, x + safeRadius, y);
-    ctx.closePath();
-  }
-
-  function drawBackground() {
-    var skyGradient = gameContext.createLinearGradient(0, 0, 0, canvasHeight);
-    skyGradient.addColorStop(0, "#2d1234");
-    skyGradient.addColorStop(0.5, "#4e1f59");
-    skyGradient.addColorStop(1, "#1f0f26");
-    gameContext.fillStyle = skyGradient;
-    gameContext.fillRect(0, 0, canvasWidth, canvasHeight);
-
-    gameContext.globalAlpha = 0.3;
-    gameContext.fillStyle = "#ffd8e7";
-    for (var i = 0; i < 25; i += 1) {
-      var sx = ((i * 79 + worldScroll * 0.42) % (canvasWidth + 10)) - 10;
-      var sy = (i * 23) % (canvasHeight * 0.62);
-      gameContext.fillRect(sx, sy, 2, 2);
-    }
-    gameContext.globalAlpha = 1;
-
-    gameContext.fillStyle = "rgba(255, 172, 203, 0.2)";
-    for (var h = 0; h < 3; h += 1) {
-      var hillY = canvasHeight - 58 + h * 9;
-      var hillOffset = (worldScroll * (0.2 + h * 0.15)) % 170;
-      for (var x = -180; x < canvasWidth + 180; x += 170) {
-        drawRoundedRect(gameContext, x - hillOffset, hillY, 170, 42, 24);
-        gameContext.fill();
-      }
-    }
-
-    gameContext.fillStyle = "rgba(255, 225, 237, 0.22)";
-    for (var scan = 0; scan < canvasHeight; scan += 4) {
-      gameContext.fillRect(0, scan, canvasWidth, 1);
-    }
-  }
-
-  function drawPlayer() {
-    if (!player) {
       return;
     }
 
-    if (player.invulnerableUntil > window.performance.now() && Math.floor(window.performance.now() / 70) % 2 === 0) {
-      return;
-    }
-
-    gameContext.fillStyle = "#ffe9f2";
-    drawRoundedRect(gameContext, player.x, player.y, player.w, player.h, 6);
-    gameContext.fill();
-
-    gameContext.fillStyle = "#ff6996";
-    gameContext.fillRect(player.x + player.w - 6, player.y + 10, 10, 8);
-
-    gameContext.fillStyle = "#90284a";
-    gameContext.fillRect(player.x + 5, player.y + 6, 8, 6);
-    gameContext.fillRect(player.x + 4, player.y + player.h - 8, 6, 4);
-    gameContext.fillRect(player.x + 14, player.y + player.h - 8, 6, 4);
+    setGameStatus("No coinciden. Intenta otra vez.");
+    clearHideMismatchTimer();
+    hideMismatchTimer = window.setTimeout(function () {
+      revealCard(firstPickIndex, false);
+      revealCard(secondPickIndex, false);
+      firstPickIndex = -1;
+      secondPickIndex = -1;
+      boardLocked = false;
+      setGameStatus("Busca la siguiente pareja.");
+      refreshBoardInteractivity();
+      hideMismatchTimer = null;
+    }, 680);
   }
 
-  function drawEnemies() {
-    for (var i = 0; i < enemies.length; i += 1) {
-      var enemy = enemies[i];
-      gameContext.fillStyle = enemy.elite ? "#ff7ca8" : "#ff96ba";
-      drawRoundedRect(gameContext, enemy.x, enemy.y, enemy.w, enemy.h, 7);
-      gameContext.fill();
-
-      gameContext.fillStyle = "#7b1e3f";
-      gameContext.fillRect(enemy.x + 3, enemy.y + 7, 8, 5);
-      gameContext.fillRect(enemy.x + enemy.w - 7, enemy.y + 10, 7, 4);
-    }
-  }
-
-  function drawBoss() {
-    if (!boss) {
-      return;
-    }
-
-    var pulse = 0.92 + Math.sin(window.performance.now() * 0.01) * 0.08;
-    gameContext.fillStyle = "rgba(255, 82, 124, " + pulse.toFixed(3) + ")";
-    drawRoundedRect(gameContext, boss.x, boss.y, boss.w, boss.h, 14);
-    gameContext.fill();
-
-    gameContext.fillStyle = "#ffe9f2";
-    gameContext.fillRect(boss.x + 15, boss.y + 20, 18, 12);
-    gameContext.fillRect(boss.x + 15, boss.y + boss.h - 32, 18, 12);
-
-    gameContext.fillStyle = "#7b1d3f";
-    gameContext.fillRect(boss.x - 6, boss.y + 24, 10, 10);
-    gameContext.fillRect(boss.x - 8, boss.y + boss.h - 34, 12, 12);
-  }
-
-  function drawProjectiles() {
-    for (var i = 0; i < bullets.length; i += 1) {
-      var bullet = bullets[i];
-      gameContext.fillStyle = "#fff6fa";
-      drawRoundedRect(gameContext, bullet.x, bullet.y, bullet.w, bullet.h, 2);
-      gameContext.fill();
-    }
-
-    for (var j = 0; j < enemyBullets.length; j += 1) {
-      var enemyBullet = enemyBullets[j];
-      gameContext.fillStyle = enemyBullet.color;
-      gameContext.beginPath();
-      gameContext.arc(enemyBullet.x, enemyBullet.y, enemyBullet.w / 2, 0, Math.PI * 2);
-      gameContext.fill();
-    }
-  }
-
-  function drawParticles() {
-    for (var i = 0; i < particles.length; i += 1) {
-      var particle = particles[i];
-      var lifeRatio = 1 - particle.age / particle.life;
-      if (lifeRatio <= 0) {
-        continue;
-      }
-
-      gameContext.globalAlpha = lifeRatio;
-      gameContext.fillStyle = particle.color;
-      gameContext.beginPath();
-      gameContext.arc(particle.x, particle.y, particle.size * lifeRatio, 0, Math.PI * 2);
-      gameContext.fill();
-    }
-    gameContext.globalAlpha = 1;
-  }
-
-  function renderMission() {
-    if (!gameContext) {
-      return;
-    }
-
-    gameContext.clearRect(0, 0, canvasWidth, canvasHeight);
-    drawBackground();
-    drawPlayer();
-    drawEnemies();
-    drawBoss();
-    drawProjectiles();
-    drawParticles();
-
-    if (missionState === "idle") {
-      gameContext.fillStyle = "rgba(255, 230, 241, 0.85)";
-      gameContext.font = "700 17px Nunito";
-      gameContext.textAlign = "center";
-      gameContext.fillText("Inicia la mision para comenzar", canvasWidth / 2, canvasHeight / 2);
-    }
-
-    if (missionState === "lost") {
-      gameContext.fillStyle = "rgba(255, 230, 241, 0.9)";
-      gameContext.font = "700 17px Nunito";
-      gameContext.textAlign = "center";
-      gameContext.fillText("Mision fallida", canvasWidth / 2, canvasHeight / 2 - 8);
-      gameContext.font = "600 13px Nunito";
-      gameContext.fillText("Pulsa Reiniciar mision", canvasWidth / 2, canvasHeight / 2 + 16);
-    }
-
-    if (missionState === "won") {
-      gameContext.fillStyle = "rgba(255, 230, 241, 0.92)";
-      gameContext.font = "700 17px Nunito";
-      gameContext.textAlign = "center";
-      gameContext.fillText("Objetivo cumplido", canvasWidth / 2, canvasHeight / 2);
-    }
-  }
-
-  function missionLoop(timestamp) {
-    if (missionState !== "running") {
-      renderMission();
-      return;
-    }
-
-    if (!lastFrameTime) {
-      lastFrameTime = timestamp;
-    }
-
-    var delta = Math.min(0.034, (timestamp - lastFrameTime) / 1000);
-    lastFrameTime = timestamp;
-
-    updateMission(delta);
-    renderMission();
-
-    if (missionState === "running") {
-      gameLoopId = window.requestAnimationFrame(missionLoop);
-    }
-  }
-
-  function startMission() {
+  function startMemoryGame() {
     if (unlocked) {
       return;
     }
 
     triggerAutoMusic();
-    stopMissionLoop();
-    resetMissionRuntime();
-    clearInputState();
-    missionState = "running";
+    stopMemoryTimers();
+
+    pairsFound = 0;
+    movesCount = 0;
+    previewRemaining = 0;
+    firstPickIndex = -1;
+    secondPickIndex = -1;
+    previewActive = false;
+    gameRunning = false;
+    boardLocked = true;
+
     enterButton.disabled = true;
     unlockMessage.hidden = true;
     loveMessage.hidden = true;
     loveMessage.textContent = "";
-    startGameButton.textContent = "Reiniciar mision";
+
+    buildBoard();
+    startGameButton.textContent = "Reiniciar reto";
     startGameButton.disabled = false;
-    setGameStatus("Muevete con WASD/flechas y dispara con Espacio.");
     updateGameStats();
-    gameLoopId = window.requestAnimationFrame(missionLoop);
+    startPreviewPhase();
   }
 
-  function getControlFromKey(keyValue) {
-    var lower = keyValue.toLowerCase();
+  startGameButton.addEventListener("click", startMemoryGame);
 
-    if (lower === "w" || keyValue === "ArrowUp") {
-      return "up";
-    }
-    if (lower === "s" || keyValue === "ArrowDown") {
-      return "down";
-    }
-    if (lower === "a" || keyValue === "ArrowLeft") {
-      return "left";
-    }
-    if (lower === "d" || keyValue === "ArrowRight") {
-      return "right";
-    }
-    if (keyValue === " " || lower === "j") {
-      return "fire";
-    }
-
-    return "";
-  }
-
-  function setControlState(control, isPressed) {
-    if (!control) {
-      return;
-    }
-
-    inputState[control] = isPressed;
-  }
-
-  function updateTouchPadDirection(clientX, clientY) {
-    var rect = touchPad.getBoundingClientRect();
-    if (!rect.width || !rect.height) {
-      return;
-    }
-
-    var centerX = rect.left + rect.width / 2;
-    var centerY = rect.top + rect.height / 2;
-    var maxDistance = Math.min(rect.width, rect.height) * 0.34;
-    var rawX = clientX - centerX;
-    var rawY = clientY - centerY;
-    var distance = Math.sqrt(rawX * rawX + rawY * rawY) || 0;
-    var deadZone = maxDistance * 0.22;
-    var dirX = 0;
-    var dirY = 0;
-
-    if (distance > deadZone) {
-      dirX = rawX / maxDistance;
-      dirY = rawY / maxDistance;
-    }
-
-    dirX = clamp(dirX, -1, 1);
-    dirY = clamp(dirY, -1, 1);
-    inputState.left = dirX < -0.25;
-    inputState.right = dirX > 0.25;
-    inputState.up = dirY < -0.25;
-    inputState.down = dirY > 0.25;
-    touchPadDot.style.transform =
-      "translate(-50%, -50%) translate(" + (dirX * 20).toFixed(1) + "px, " + (dirY * 20).toFixed(1) + "px)";
-  }
-
-  function releaseTouchPadControl(pointerId) {
-    if (activeTouchPadPointerId === null || pointerId !== activeTouchPadPointerId) {
-      return;
-    }
-
-    activeTouchPadPointerId = null;
-    clearDirectionalInput();
-    touchPad.classList.remove("active");
-    touchPadDot.style.transform = "translate(-50%, -50%)";
-  }
-
-  function bindControlEvents() {
-    document.addEventListener("keydown", function (event) {
-      var control = getControlFromKey(event.key);
-      if (!control) {
-        return;
-      }
-
-      if (missionState === "running") {
-        event.preventDefault();
-      }
-
-      setControlState(control, true);
-      triggerAutoMusic();
-    });
-
-    document.addEventListener("keyup", function (event) {
-      var control = getControlFromKey(event.key);
-      if (!control) {
-        return;
-      }
-
-      setControlState(control, false);
-    });
-
-    window.addEventListener("blur", clearInputState);
-
-    touchPad.addEventListener("pointerdown", function (event) {
-      if (event.pointerType === "mouse") {
-        return;
-      }
-
-      event.preventDefault();
-      triggerAutoMusic();
-      activeTouchPadPointerId = event.pointerId;
-      touchPad.classList.add("active");
-      touchPad.setPointerCapture(event.pointerId);
-      updateTouchPadDirection(event.clientX, event.clientY);
-    });
-
-    touchPad.addEventListener("pointermove", function (event) {
-      if (activeTouchPadPointerId !== event.pointerId) {
-        return;
-      }
-
-      event.preventDefault();
-      updateTouchPadDirection(event.clientX, event.clientY);
-    });
-
-    touchPad.addEventListener("pointerup", function (event) {
-      releaseTouchPadControl(event.pointerId);
-    });
-
-    touchPad.addEventListener("pointercancel", function (event) {
-      releaseTouchPadControl(event.pointerId);
-    });
-
-    var touchButtons = touchControls.querySelectorAll("[data-control]");
-    for (var i = 0; i < touchButtons.length; i += 1) {
-      (function bindTouchButton(button) {
-        var control = button.getAttribute("data-control");
-
-        function releaseControl() {
-          setControlState(control, false);
-          button.classList.remove("active");
-        }
-
-        button.addEventListener("pointerdown", function (event) {
-          event.preventDefault();
-          triggerAutoMusic();
-          setControlState(control, true);
-          button.classList.add("active");
-        });
-
-        button.addEventListener("pointerup", releaseControl);
-        button.addEventListener("pointercancel", releaseControl);
-        button.addEventListener("pointerleave", releaseControl);
-      })(touchButtons[i]);
-    }
-  }
-
-  function initializeMissionCanvas() {
-    contraCanvas.width = canvasWidth;
-    contraCanvas.height = canvasHeight;
-    gameContext = contraCanvas.getContext("2d");
-    resetMissionRuntime();
-    renderMission();
-    setGameStatus("Inicia la mision y derrota al jefe final.");
-  }
-
-  startGameButton.addEventListener("click", startMission);
-
-  bindControlEvents();
-  initializeMissionCanvas();
+  updateGameStats();
   updateViewedCounter();
 
   for (var i = 1; i <= totalPhotos; i += 1) {
