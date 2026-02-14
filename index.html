@@ -26,6 +26,17 @@
     <span>&#10084;</span>
   </div>
 
+  <div class="music-control">
+    <button id="musicButton" type="button" aria-pressed="false">Activar musica</button>
+    <p class="music-label">Lasso - Hasta Ese Dia</p>
+  </div>
+  <iframe
+    id="scPlayer"
+    title="Musica de fondo"
+    allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/lasso-official/hasta-ese-dia&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false"
+  ></iframe>
+
   <main class="app-shell">
     <section class="welcome-card" id="welcome">
       <p class="date-tag">14 de febrero</p>
@@ -54,6 +65,7 @@
     </section>
   </main>
 
+  <script src="https://w.soundcloud.com/player/api.js"></script>
   <script src="main.js"></script>
 </body>
 </html>

@@ -29,6 +29,50 @@ body {
   overflow-x: hidden;
 }
 
+#scPlayer {
+  position: fixed;
+  left: -9999px;
+  top: -9999px;
+  width: 1px;
+  height: 1px;
+  border: 0;
+  pointer-events: none;
+}
+
+.music-control {
+  position: fixed;
+  right: 0.9rem;
+  bottom: 0.9rem;
+  z-index: 90;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.55rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 244, 247, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 22px rgba(99, 18, 42, 0.25);
+  backdrop-filter: blur(5px);
+}
+
+#musicButton {
+  border: none;
+  border-radius: 999px;
+  padding: 0.48rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(90deg, #db3765, #b81e46);
+}
+
+.music-label {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #7a2d45;
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -363,5 +407,23 @@ body.show-gallery .gallery-view {
 
   .subtitle {
     font-size: 1rem;
+  }
+
+  .music-control {
+    right: 0.6rem;
+    bottom: 0.6rem;
+    padding: 0.45rem 0.5rem;
+    gap: 0.35rem;
+  }
+
+  #musicButton {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.75rem;
+  }
+
+  .music-label {
+    max-width: 120px;
+    font-size: 0.72rem;
+    line-height: 1.15;
   }
 }

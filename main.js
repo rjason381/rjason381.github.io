@@ -25,9 +25,17 @@
   var scoreValue = document.getElementById("scoreValue");
   var gameArea = document.getElementById("gameArea");
   var heartButton = document.getElementById("heartButton");
+  var musicButton = document.getElementById("musicButton");
+  var scPlayer = document.getElementById("scPlayer");
   var unlockMessage = document.getElementById("unlockMessage");
   var welcome = document.getElementById("welcome");
   var gallery = document.getElementById("gallery");
+  var scWidget = null;
+  var musicReady = false;
+  var musicPlaying = false;
+  var wantsMusic = false;
+  var autoMusicTriggered = false;
+  var userMusicChoice = false;
 
   if (
     !collage ||
@@ -35,12 +43,78 @@
     !scoreValue ||
     !gameArea ||
     !heartButton ||
+    !musicButton ||
+    !scPlayer ||
     !unlockMessage ||
     !welcome ||
     !gallery
   ) {
     return;
   }
+
+  function updateMusicButton() {
+    musicButton.setAttribute("aria-pressed", musicPlaying ? "true" : "false");
+    musicButton.textContent = musicPlaying ? "Pausar musica" : "Activar musica";
+  }
+
+  function syncMusicPlayback() {
+    if (!scWidget || !musicReady) {
+      return;
+    }
+
+    if (wantsMusic) {
+      scWidget.play();
+      return;
+    }
+
+    scWidget.pause();
+  }
+
+  function triggerAutoMusic() {
+    if (autoMusicTriggered || userMusicChoice) {
+      return;
+    }
+
+    autoMusicTriggered = true;
+    wantsMusic = true;
+    syncMusicPlayback();
+  }
+
+  if (window.SC && window.SC.Widget) {
+    scWidget = window.SC.Widget(scPlayer);
+
+    scWidget.bind(window.SC.Widget.Events.READY, function () {
+      musicReady = true;
+      syncMusicPlayback();
+      updateMusicButton();
+    });
+
+    scWidget.bind(window.SC.Widget.Events.PLAY, function () {
+      musicPlaying = true;
+      updateMusicButton();
+    });
+
+    scWidget.bind(window.SC.Widget.Events.PAUSE, function () {
+      musicPlaying = false;
+      updateMusicButton();
+    });
+
+    scWidget.bind(window.SC.Widget.Events.FINISH, function () {
+      if (!wantsMusic) {
+        return;
+      }
+
+      scWidget.seekTo(0);
+      scWidget.play();
+    });
+  }
+
+  musicButton.addEventListener("click", function () {
+    userMusicChoice = true;
+    wantsMusic = !wantsMusic;
+    syncMusicPlayback();
+  });
+  updateMusicButton();
 
   function moveHeart() {
     var maxX = Math.max(0, gameArea.clientWidth - heartButton.offsetWidth);
@@ -65,6 +139,8 @@
   }
 
   heartButton.addEventListener("click", function () {
+    triggerAutoMusic();
+
     if (unlocked) {
       return;
     }
@@ -114,6 +190,8 @@
   }
 
   enterButton.addEventListener("click", function () {
+    triggerAutoMusic();
+
     if (enterButton.disabled) {
       return;
     }
