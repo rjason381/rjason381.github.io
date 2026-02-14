@@ -29,9 +29,20 @@
   <main class="app-shell">
     <section class="welcome-card" id="welcome">
       <p class="date-tag">14 de febrero</p>
-      <h1>Quieres ser mi san valentin?</h1>
-      <p class="subtitle">Abre esta ventana de amor y mira todos nuestros recuerdos.</p>
-      <button id="enterButton" type="button">Entrar</button>
+      <h1>Mini juego de amor</h1>
+      <p class="subtitle">Atrapa 8 corazones para desbloquear el boton de aceptar.</p>
+
+      <div class="game-panel">
+        <p class="game-progress">Corazones: <strong id="scoreValue">0</strong>/8</p>
+        <div class="game-area" id="gameArea">
+          <button id="heartButton" class="heart-button" type="button" aria-label="Atrapar corazon">&#10084;</button>
+        </div>
+        <p class="game-hint">Toca el corazon cada vez que cambie de lugar.</p>
+      </div>
+
+      <p class="question">Quieres ser mi san valentin?</p>
+      <button id="enterButton" type="button" disabled>Aceptar</button>
+      <p id="unlockMessage" class="unlock-message" hidden>Desbloqueado. Presiona Aceptar.</p>
     </section>
 
     <section class="gallery-view" id="gallery" aria-hidden="true">
