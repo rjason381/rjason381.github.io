@@ -237,7 +237,11 @@
     openFinalPhotoModal();
   }
 
-  function markPhotoViewed(fileName) {
+  function markPhotoViewed(fileName, photoCard) {
+    if (photoCard) {
+      photoCard.classList.add("viewed");
+    }
+
     if (viewedPhotos[fileName]) {
       return;
     }
@@ -355,14 +359,14 @@
       var imagePath = "photos/" + currentName;
 
       photoCard.addEventListener("click", function () {
-        markPhotoViewed(currentName);
+        markPhotoViewed(currentName, photoCard);
         openPhotoModal(currentName, imagePath, currentDescription);
       });
 
       photoCard.addEventListener("keydown", function (event) {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          markPhotoViewed(currentName);
+          markPhotoViewed(currentName, photoCard);
           openPhotoModal(currentName, imagePath, currentDescription);
         }
       });

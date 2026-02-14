@@ -282,6 +282,7 @@ body::before {
 }
 
 .photo-card {
+  position: relative;
   break-inside: avoid;
   margin: 0 0 0.95rem;
   padding: 0.45rem;
@@ -291,6 +292,7 @@ body::before {
   transform: rotate(var(--tilt, 0deg));
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
+  overflow: hidden;
   opacity: 0;
   animation: photoIn 0.55s ease forwards;
 }
@@ -309,6 +311,28 @@ body::before {
   width: 100%;
   display: block;
   border-radius: 12px;
+  transition: filter 0.25s ease;
+}
+
+.photo-card.viewed img {
+  filter: brightness(0.58) saturate(0.7);
+}
+
+.photo-card.viewed::after {
+  content: "Ya vista";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #7f2344;
+  background: rgba(255, 244, 248, 0.94);
+  box-shadow: 0 6px 16px rgba(95, 17, 43, 0.28);
+  pointer-events: none;
 }
 
 .photo-modal {
