@@ -1,6 +1,7 @@
 (function () {
   var totalPhotos = 15;
   var finalPhotoFile = "photo-16.jpg";
+  var ytVideoId = "-aErzz-5zfI";
   var memorySourcePhotos = [];
   var memoryPreviewSeconds = 11;
   var winLoveMessage =
@@ -53,7 +54,7 @@
   var memoryBoard = document.getElementById("memoryBoard");
   var startGameButton = document.getElementById("startGameButton");
   var musicButton = document.getElementById("musicButton");
-  var scPlayer = document.getElementById("scPlayer");
+  var ytPlayerHost = document.getElementById("ytPlayer");
   var unlockMessage = document.getElementById("unlockMessage");
   var loveMessage = document.getElementById("loveMessage");
   var welcome = document.getElementById("welcome");
@@ -68,7 +69,7 @@
   var finalPhotoText = document.getElementById("finalPhotoText");
   var heartRain = document.getElementById("heartRain");
 
-  var scWidget = null;
+  var ytMusicPlayer = null;
   var musicReady = false;
   var wantsMusic = true;
   var autoMusicTriggered = false;
@@ -86,7 +87,7 @@
     !memoryBoard ||
     !startGameButton ||
     !musicButton ||
-    !scPlayer ||
+    !ytPlayerHost ||
     !unlockMessage ||
     !loveMessage ||
     !welcome ||
@@ -130,16 +131,16 @@
   }
 
   function syncMusicPlayback() {
-    if (!scWidget || !musicReady) {
+    if (!ytMusicPlayer || !musicReady) {
       return;
     }
 
     if (wantsMusic) {
-      scWidget.play();
+      ytMusicPlayer.playVideo();
       return;
     }
 
-    scWidget.pause();
+    ytMusicPlayer.pauseVideo();
   }
 
   function triggerAutoMusic() {
@@ -152,23 +153,58 @@
     syncMusicPlayback();
   }
 
-  if (window.SC && window.SC.Widget) {
-    scWidget = window.SC.Widget(scPlayer);
+  function initializeYouTubePlayer() {
+    if (!window.YT || !window.YT.Player || ytMusicPlayer) {
+      return;
+    }
 
-    scWidget.bind(window.SC.Widget.Events.READY, function () {
-      musicReady = true;
-      syncMusicPlayback();
-      updateMusicButton();
-    });
-
-    scWidget.bind(window.SC.Widget.Events.FINISH, function () {
-      if (!wantsMusic) {
-        return;
+    ytMusicPlayer = new window.YT.Player("ytPlayer", {
+      width: "1",
+      height: "1",
+      videoId: ytVideoId,
+      playerVars: {
+        autoplay: 0,
+        controls: 0,
+        disablekb: 1,
+        fs: 0,
+        iv_load_policy: 3,
+        modestbranding: 1,
+        rel: 0,
+        playsinline: 1,
+        loop: 1,
+        playlist: ytVideoId
+      },
+      events: {
+        onReady: function () {
+          musicReady = true;
+          syncMusicPlayback();
+          updateMusicButton();
+        },
+        onStateChange: function (event) {
+          if (
+            event.data === window.YT.PlayerState.ENDED &&
+            wantsMusic &&
+            ytMusicPlayer
+          ) {
+            ytMusicPlayer.seekTo(0);
+            ytMusicPlayer.playVideo();
+          }
+        }
       }
-
-      scWidget.seekTo(0);
-      scWidget.play();
     });
+  }
+
+  var previousYouTubeReady = window.onYouTubeIframeAPIReady;
+  window.onYouTubeIframeAPIReady = function () {
+    if (typeof previousYouTubeReady === "function") {
+      previousYouTubeReady();
+    }
+
+    initializeYouTubePlayer();
+  };
+
+  if (window.YT && window.YT.Player) {
+    initializeYouTubePlayer();
   }
 
   musicButton.addEventListener("click", function () {

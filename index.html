@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260214d">
+  <link rel="stylesheet" href="styles.css?v=20260214e">
 </head>
 <body>
   <div class="hearts" aria-hidden="true">
@@ -30,12 +30,7 @@
     <button id="musicButton" type="button" aria-pressed="true">Pausar musica</button>
     <p class="music-label">Lasso - Hasta Ese Dia</p>
   </div>
-  <iframe
-    id="scPlayer"
-    title="Musica de fondo"
-    allow="autoplay"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/lasso-official/hasta-ese-dia&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false"
-  ></iframe>
+  <div id="ytPlayer" aria-hidden="true"></div>
 
   <main class="app-shell">
     <section class="welcome-card" id="welcome">
@@ -92,7 +87,7 @@
 
   <div id="heartRain" class="heart-rain" aria-hidden="true" hidden></div>
 
-  <script src="https://w.soundcloud.com/player/api.js"></script>
-  <script src="main.js?v=20260214d"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="main.js?v=20260214e"></script>
 </body>
 </html>
