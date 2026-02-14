@@ -48,8 +48,8 @@
   var scWidget = null;
   var musicReady = false;
   var musicPlaying = false;
-  var wantsMusic = false;
-  var autoMusicTriggered = false;
+  var wantsMusic = true;
+  var autoMusicTriggered = true;
   var userMusicChoice = false;
 
   if (
@@ -92,8 +92,8 @@
   }
 
   function updateMusicButton() {
-    musicButton.setAttribute("aria-pressed", musicPlaying ? "true" : "false");
-    musicButton.textContent = musicPlaying ? "Pausar musica" : "Activar musica";
+    musicButton.setAttribute("aria-pressed", wantsMusic ? "true" : "false");
+    musicButton.textContent = wantsMusic ? "Pausar musica" : "Activar musica";
   }
 
   function syncMusicPlayback() {
