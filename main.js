@@ -55,6 +55,8 @@
   var contraCanvas = document.getElementById("contraCanvas");
   var startGameButton = document.getElementById("startGameButton");
   var touchControls = document.getElementById("touchControls");
+  var touchPad = document.getElementById("touchPad");
+  var touchPadDot = document.getElementById("touchPadDot");
   var bossLife = document.getElementById("bossLife");
   var bossLifeBar = document.getElementById("bossLifeBar");
   var musicButton = document.getElementById("musicButton");
@@ -78,6 +80,7 @@
   var autoMusicTriggered = false;
   var userMusicChoice = false;
   var gameContext = null;
+  var activeTouchPadPointerId = null;
 
   if (
     !collage ||
@@ -90,6 +93,8 @@
     !contraCanvas ||
     !startGameButton ||
     !touchControls ||
+    !touchPad ||
+    !touchPadDot ||
     !bossLife ||
     !bossLifeBar ||
     !musicButton ||
@@ -345,11 +350,22 @@
     inputState.left = false;
     inputState.right = false;
     inputState.fire = false;
+    activeTouchPadPointerId = null;
 
     var buttons = touchControls.querySelectorAll(".touch-btn.active");
     for (var i = 0; i < buttons.length; i += 1) {
       buttons[i].classList.remove("active");
     }
+
+    touchPad.classList.remove("active");
+    touchPadDot.style.transform = "translate(-50%, -50%)";
+  }
+
+  function clearDirectionalInput() {
+    inputState.up = false;
+    inputState.down = false;
+    inputState.left = false;
+    inputState.right = false;
   }
 
   function updateGameStats() {
@@ -578,7 +594,7 @@
     }
 
     playerShotTimer -= delta;
-    if (inputState.fire && playerShotTimer <= 0) {
+    if ((inputState.fire || activeTouchPadPointerId !== null) && playerShotTimer <= 0) {
       shootPlayer();
       playerShotTimer = boss ? 0.12 : 0.145;
     }
@@ -679,7 +695,6 @@
 
       if (foe.x + foe.w < 0) {
         enemies.splice(i, 1);
-        damagePlayer(1);
         continue;
       }
 
@@ -963,6 +978,48 @@
     inputState[control] = isPressed;
   }
 
+  function updateTouchPadDirection(clientX, clientY) {
+    var rect = touchPad.getBoundingClientRect();
+    if (!rect.width || !rect.height) {
+      return;
+    }
+
+    var centerX = rect.left + rect.width / 2;
+    var centerY = rect.top + rect.height / 2;
+    var maxDistance = Math.min(rect.width, rect.height) * 0.34;
+    var rawX = clientX - centerX;
+    var rawY = clientY - centerY;
+    var distance = Math.sqrt(rawX * rawX + rawY * rawY) || 0;
+    var deadZone = maxDistance * 0.22;
+    var dirX = 0;
+    var dirY = 0;
+
+    if (distance > deadZone) {
+      dirX = rawX / maxDistance;
+      dirY = rawY / maxDistance;
+    }
+
+    dirX = clamp(dirX, -1, 1);
+    dirY = clamp(dirY, -1, 1);
+    inputState.left = dirX < -0.25;
+    inputState.right = dirX > 0.25;
+    inputState.up = dirY < -0.25;
+    inputState.down = dirY > 0.25;
+    touchPadDot.style.transform =
+      "translate(-50%, -50%) translate(" + (dirX * 20).toFixed(1) + "px, " + (dirY * 20).toFixed(1) + "px)";
+  }
+
+  function releaseTouchPadControl(pointerId) {
+    if (activeTouchPadPointerId === null || pointerId !== activeTouchPadPointerId) {
+      return;
+    }
+
+    activeTouchPadPointerId = null;
+    clearDirectionalInput();
+    touchPad.classList.remove("active");
+    touchPadDot.style.transform = "translate(-50%, -50%)";
+  }
+
   function bindControlEvents() {
     document.addEventListener("keydown", function (event) {
       var control = getControlFromKey(event.key);
@@ -988,6 +1045,36 @@
     });
 
     window.addEventListener("blur", clearInputState);
+
+    touchPad.addEventListener("pointerdown", function (event) {
+      if (event.pointerType === "mouse") {
+        return;
+      }
+
+      event.preventDefault();
+      triggerAutoMusic();
+      activeTouchPadPointerId = event.pointerId;
+      touchPad.classList.add("active");
+      touchPad.setPointerCapture(event.pointerId);
+      updateTouchPadDirection(event.clientX, event.clientY);
+    });
+
+    touchPad.addEventListener("pointermove", function (event) {
+      if (activeTouchPadPointerId !== event.pointerId) {
+        return;
+      }
+
+      event.preventDefault();
+      updateTouchPadDirection(event.clientX, event.clientY);
+    });
+
+    touchPad.addEventListener("pointerup", function (event) {
+      releaseTouchPadControl(event.pointerId);
+    });
+
+    touchPad.addEventListener("pointercancel", function (event) {
+      releaseTouchPadControl(event.pointerId);
+    });
 
     var touchButtons = touchControls.querySelectorAll("[data-control]");
     for (var i = 0; i < touchButtons.length; i += 1) {

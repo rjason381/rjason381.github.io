@@ -61,14 +61,14 @@
         </div>
         <button id="startGameButton" class="game-start" type="button">Iniciar mision</button>
         <div id="touchControls" class="touch-controls" aria-label="Controles tactiles">
-          <button class="touch-btn" data-control="up" type="button" aria-label="Arriba">&#8593;</button>
-          <button class="touch-btn" data-control="left" type="button" aria-label="Izquierda">&#8592;</button>
-          <button class="touch-btn" data-control="down" type="button" aria-label="Abajo">&#8595;</button>
-          <button class="touch-btn" data-control="right" type="button" aria-label="Derecha">&#8594;</button>
+          <div id="touchPad" class="touch-pad" aria-label="Pad de movimiento tactil">
+            <span class="touch-pad-hint">Mueve aqui</span>
+            <span id="touchPadDot" class="touch-pad-dot" aria-hidden="true"></span>
+          </div>
           <button class="touch-btn fire" data-control="fire" type="button" aria-label="Disparar">Disparo</button>
         </div>
       </div>
-      <p class="game-hint">PC: WASD o flechas para mover, Espacio para disparar. Movil: usa los botones.</p>
+      <p class="game-hint">PC: WASD o flechas para mover, Espacio para disparar. Movil: arrastra en el pad para mover y usa Disparo.</p>
 
       <p class="question">Quieres ser mi san valentin?</p>
       <button id="enterButton" type="button" disabled>Aceptar</button>
