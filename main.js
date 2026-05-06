@@ -1,713 +1,306 @@
 (function () {
-  var totalPhotos = 15;
-  var finalPhotoFile = "photo-16.jpg";
-  var ytVideoId = "-aErzz-5zfI";
-  var memorySourcePhotos = [];
-  var memoryPreviewSeconds = 11;
-  var winLoveMessage =
-    "Te amo mi vida, gracias por todo mi amor, es un pequeno presente, lo que se hacer, espero te guste, nuestro primer 14 con nuestro hijo, ya que el anterior aun estabamos sin Elric jajaja";
+  var projects = [
+    {
+      title: "Via Expresa Santa Rosa",
+      category: "Infraestructura vial",
+      filters: ["infraestructura"],
+      image: "PORTAFOLIO/VIA EXPRESA SANTA ROSAA.png",
+      summary: "Visualizacion tecnica del corredor vial con lectura de componentes, contexto urbano y coordinacion del modelo.",
+      description: "Proyecto de infraestructura presentado con enfoque BIM para comunicar alcance, interferencias y zonas de trabajo en una vista clara para revision tecnica.",
+      highlights: [
+        "Modelo y vistas orientadas a coordinacion de obra.",
+        "Lectura visual de tramos, estructuras y entorno inmediato.",
+        "Base grafica preparada para reportes ejecutivos."
+      ],
+      tags: ["BIM", "Infraestructura", "Coordinacion"]
+    },
+    {
+      title: "Via Expresa Santa Rosa - gestion del proyecto",
+      category: "Infraestructura vial",
+      filters: ["infraestructura", "costos"],
+      image: "PORTAFOLIO/proyecto VIA EXPRESA SANTA ROSA.png",
+      summary: "Panel tecnico para consolidar informacion del proyecto vial y facilitar seguimiento de datos relevantes.",
+      description: "Captura de gestion asociada al proyecto Via Expresa Santa Rosa, enfocada en ordenar informacion tecnica para control y toma de decisiones.",
+      highlights: [
+        "Organizacion de informacion por frentes y componentes.",
+        "Presentacion visual para reuniones de seguimiento.",
+        "Enfoque en trazabilidad y lectura rapida del avance."
+      ],
+      tags: ["Gestion", "Seguimiento", "Costos"]
+    },
+    {
+      title: "Country Club Villa",
+      category: "Edificacion",
+      filters: ["edificacion"],
+      image: "PORTAFOLIO/PROYECTO COUNTRY CLUB VILLA.png",
+      summary: "Modelo arquitectonico y tecnico para proyecto residencial, con vistas preparadas para presentacion profesional.",
+      description: "Trabajo de edificacion con enfoque en representacion, revision y comunicacion de elementos del proyecto desde el modelo digital.",
+      highlights: [
+        "Vistas del modelo para explicar alcance arquitectonico.",
+        "Soporte visual para revision con clientes o equipo tecnico.",
+        "Ordenamiento grafico para portafolio y entregables."
+      ],
+      tags: ["Edificacion", "Modelo", "Presentacion"]
+    },
+    {
+      title: "Itemizado y presupuesto",
+      category: "Costos y metrados",
+      filters: ["costos"],
+      image: "PORTAFOLIO/ITEMIZADO Y PRESUPUESTO.png",
+      summary: "Estructura de partidas, metrados y presupuesto orientada a control tecnico y financiero del proyecto.",
+      description: "Sistema de itemizado para conectar cantidades, partidas y valores de presupuesto con una lectura ordenada del alcance.",
+      highlights: [
+        "Clasificacion de partidas para analisis y seguimiento.",
+        "Base para reportes de presupuesto y control de cambios.",
+        "Formato pensado para revision tecnica y ejecutiva."
+      ],
+      tags: ["Presupuesto", "Metrados", "Partidas"]
+    },
+    {
+      title: "Hospital Sergio Bernales",
+      category: "Salud",
+      filters: ["salud", "edificacion"],
+      image: "PORTAFOLIO/HOSPITAL SEGIO BERNALES.png",
+      summary: "Proyecto hospitalario con foco en coordinacion, visualizacion de especialidades y lectura de infraestructura compleja.",
+      description: "Captura de proyecto de salud donde la informacion BIM ayuda a revisar espacios, sistemas y componentes de alta complejidad.",
+      highlights: [
+        "Modelo preparado para inspeccion de zonas criticas.",
+        "Visualizacion de infraestructura hospitalaria compleja.",
+        "Soporte para coordinacion multidisciplinaria."
+      ],
+      tags: ["Hospital", "BIM", "Coordinacion"]
+    },
+    {
+      title: "Hospital Antonio Lorena - Cusco",
+      category: "Salud",
+      filters: ["salud", "edificacion"],
+      image: "PORTAFOLIO/HOSPITAL ANTONIO LORENA  - CUSCO.png",
+      summary: "Representacion tecnica de proyecto hospitalario con comunicacion visual para revision de alcance.",
+      description: "Proyecto de salud en Cusco presentado mediante capturas de modelo para apoyar seguimiento, revision y explicacion tecnica.",
+      highlights: [
+        "Vistas tecnicas para comunicar el alcance del proyecto.",
+        "Lectura ordenada de volumenes y componentes principales.",
+        "Base visual para presentaciones de avance."
+      ],
+      tags: ["Salud", "Cusco", "Modelo BIM"]
+    },
+    {
+      title: "Gestion BIM - Proyecto EIMI",
+      category: "Gestion BIM",
+      filters: ["edificacion", "costos"],
+      image: "PORTAFOLIO/gestion BIM PROYECTO EIMI.png",
+      summary: "Flujo de gestion BIM para integrar informacion del modelo con criterios de revision y control.",
+      description: "Trabajo orientado a ordenar informacion BIM, documentar criterios y convertir el modelo en una fuente util para seguimiento tecnico.",
+      highlights: [
+        "Estructura de informacion para gestion del modelo.",
+        "Apoyo a control de entregables y revision de datos.",
+        "Comunicacion clara de elementos clave del proyecto."
+      ],
+      tags: ["Gestion BIM", "Datos", "Entregables"]
+    },
+    {
+      title: "Control CAPEX",
+      category: "Control financiero",
+      filters: ["costos", "software"],
+      image: "PORTAFOLIO/CONTROLCAPEX.png",
+      summary: "Tablero para control de inversion, seguimiento de indicadores y presentacion ejecutiva de costos.",
+      description: "Herramienta visual para monitorear informacion financiera del proyecto y facilitar lectura de CAPEX en diferentes niveles de detalle.",
+      highlights: [
+        "Dashboard para indicadores de inversion y control.",
+        "Presentacion limpia para reuniones de seguimiento.",
+        "Base para comparar escenarios, avances y desviaciones."
+      ],
+      tags: ["CAPEX", "Dashboard", "Costos"]
+    },
+    {
+      title: "Add-in de sincronizacion de modelo, costos y metrados",
+      category: "Software BIM",
+      filters: ["software", "costos"],
+      image: "PORTAFOLIO/ADDIN DE SINCRONIZACION DEL MODELO CON COSTOS Y METRADOS.png",
+      summary: "Automatizacion para vincular informacion del modelo con metrados y costos, reduciendo trabajo manual.",
+      description: "Desarrollo de add-in orientado a sincronizar datos del modelo BIM con estructuras de costos y cantidades para mejorar consistencia.",
+      highlights: [
+        "Conexion entre parametros del modelo y estructura de costos.",
+        "Reduccion de tareas repetitivas en metrados.",
+        "Flujo preparado para control y actualizacion de datos."
+      ],
+      tags: ["Revit", "Add-in", "Automatizacion"]
+    },
+    {
+      title: "Add-in de itemizado y costos para Revit",
+      category: "Software BIM",
+      filters: ["software", "costos"],
+      image: "PORTAFOLIO/ADDIN DE ITEMIZADO Y FCOSTOS REVIT.png",
+      summary: "Herramienta para itemizar elementos y trabajar costos desde Revit con una interfaz directa.",
+      description: "Add-in para acelerar el armado de itemizados y asociar informacion de costos dentro del entorno BIM.",
+      highlights: [
+        "Interfaz enfocada en itemizado desde el modelo.",
+        "Asociacion de elementos con partidas y costos.",
+        "Preparado para flujos de metrados y presupuesto."
+      ],
+      tags: ["Revit", "Itemizado", "Costos"]
+    }
+  ];
 
-  var unlocked = false;
-  var pairsFound = 0;
-  var movesCount = 0;
-  var previewRemaining = 0;
-  var gameRunning = false;
-  var boardLocked = true;
-  var previewActive = false;
-  var memoryCards = [];
-  var firstPickIndex = -1;
-  var secondPickIndex = -1;
-  var previewInterval = null;
-  var hideMismatchTimer = null;
+  var header = document.querySelector("[data-header]");
+  var grid = document.getElementById("projectsGrid");
+  var filterButtons = Array.prototype.slice.call(document.querySelectorAll(".filter-button"));
+  var modal = document.getElementById("projectModal");
+  var modalImage = document.getElementById("modalImage");
+  var modalTitle = document.getElementById("modalTitle");
+  var modalCategory = document.getElementById("modalCategory");
+  var modalDescription = document.getElementById("modalDescription");
+  var modalHighlights = document.getElementById("modalHighlights");
+  var modalTags = document.getElementById("modalTags");
+  var lastFocusedElement = null;
 
-  var viewedCount = 0;
-  var viewedPhotos = {};
-  var finalRevealed = false;
-  var finalRevealPending = false;
-  var heartRainTimer = null;
-  var tiltValues = [-2, 1.8, -1.4, 2.2, -2.6, 1.1, -1.9, 2.4];
-  var photoDescriptions = {
-    "photo-01.jpeg": "Nuestra salida a los jueguitosss, recuerdas? Estabas poco malita, incluso en el carriwis, te sentias super mal, pero todo salio super bien :3",
-    "photo-02.jpeg": "Ya con pancita :3",
-    "photo-03.jpeg": "En Cafe Paris, con nauseas y todo pero hermosaaa siempree",
-    "photo-04.jpeg": "El diaaaaa oficialll!!!!",
-    "photo-05.jpeg": "Enfermo, pero con mi amorcito siempreee, Rusticaa",
-    "photo-06.jpeg": "Entrega de mi titulo, gracias por estar en ese momento tan especial",
-    "photo-07.jpeg": "Jueguitos denuevooo!!",
-    "photo-08.jpeg": "Jueguitoss otra vezz",
-    "photo-09.jpeg": "Y otraaa vezz",
-    "photo-10.jpeg": "En camino al nidito de amorr :v",
-    "photo-11.jpeg": "Escapadita al sauna para la relajacion",
-    "photo-12.jpeg": "Saunita x2",
-    "photo-13.jpeg": "Corazon Corazon Cara con ojos de corazon enamorado",
-    "photo-14.jpeg": "Corazon Corazon Cara con ojos de corazon enamorado"
-  };
-
-  var collage = document.getElementById("photoCollage");
-  var enterButton = document.getElementById("enterButton");
-  var viewedCounter = document.getElementById("viewedCounter");
-  var pairsValue = document.getElementById("pairsValue");
-  var pairsTargetValue = document.getElementById("pairsTargetValue");
-  var movesValue = document.getElementById("movesValue");
-  var previewValue = document.getElementById("previewValue");
-  var gameStatus = document.getElementById("gameStatus");
-  var memoryBoard = document.getElementById("memoryBoard");
-  var startGameButton = document.getElementById("startGameButton");
-  var musicButton = document.getElementById("musicButton");
-  var ytPlayerHost = document.getElementById("ytPlayer");
-  var unlockMessage = document.getElementById("unlockMessage");
-  var loveMessage = document.getElementById("loveMessage");
-  var welcome = document.getElementById("welcome");
-  var gallery = document.getElementById("gallery");
-  var photoModal = document.getElementById("photoModal");
-  var closePhotoModal = document.getElementById("closePhotoModal");
-  var modalPhotoImage = document.getElementById("modalPhotoImage");
-  var modalPhotoDescription = document.getElementById("modalPhotoDescription");
-  var finalPhotoModal = document.getElementById("finalPhotoModal");
-  var closeFinalModal = document.getElementById("closeFinalModal");
-  var finalPhotoImage = document.getElementById("finalPhotoImage");
-  var finalPhotoText = document.getElementById("finalPhotoText");
-  var heartRain = document.getElementById("heartRain");
-
-  var ytMusicPlayer = null;
-  var musicReady = false;
-  var wantsMusic = true;
-  var autoMusicTriggered = false;
-  var userMusicChoice = false;
-
-  if (
-    !collage ||
-    !enterButton ||
-    !viewedCounter ||
-    !pairsValue ||
-    !pairsTargetValue ||
-    !movesValue ||
-    !previewValue ||
-    !gameStatus ||
-    !memoryBoard ||
-    !startGameButton ||
-    !musicButton ||
-    !ytPlayerHost ||
-    !unlockMessage ||
-    !loveMessage ||
-    !welcome ||
-    !gallery ||
-    !photoModal ||
-    !closePhotoModal ||
-    !modalPhotoImage ||
-    !modalPhotoDescription ||
-    !finalPhotoModal ||
-    !closeFinalModal ||
-    !finalPhotoImage ||
-    !finalPhotoText ||
-    !heartRain
-  ) {
+  if (!grid || !modal || !modalImage || !modalTitle || !modalCategory || !modalDescription || !modalHighlights || !modalTags) {
     return;
   }
 
-  for (var photoIndex = 1; photoIndex <= totalPhotos; photoIndex += 1) {
-    memorySourcePhotos.push("photo-" + String(photoIndex).padStart(2, "0") + ".jpeg");
-  }
-
-  pairsTargetValue.textContent = String(memorySourcePhotos.length);
-
-  function refreshBodyModalState() {
-    var hasOpenModal = !photoModal.hidden || !finalPhotoModal.hidden;
-    if (hasOpenModal) {
-      document.body.classList.add("modal-open");
+  function setHeaderState() {
+    if (!header) {
       return;
     }
 
+    header.classList.toggle("is-scrolled", window.scrollY > 24);
+  }
+
+  function createTag(label) {
+    var tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = label;
+    return tag;
+  }
+
+  function openProject(project) {
+    lastFocusedElement = document.activeElement;
+    modalImage.src = project.image;
+    modalImage.alt = "Captura del proyecto " + project.title;
+    modalTitle.textContent = project.title;
+    modalCategory.textContent = project.category;
+    modalDescription.textContent = project.description;
+    modalHighlights.innerHTML = "";
+    modalTags.innerHTML = "";
+
+    project.highlights.forEach(function (highlight) {
+      var item = document.createElement("li");
+      item.textContent = highlight;
+      modalHighlights.appendChild(item);
+    });
+
+    project.tags.forEach(function (tag) {
+      modalTags.appendChild(createTag(tag));
+    });
+
+    modal.hidden = false;
+    document.body.classList.add("modal-open");
+    modal.querySelector("[data-close-modal]").focus();
+  }
+
+  function closeProject() {
+    if (modal.hidden) {
+      return;
+    }
+
+    modal.hidden = true;
+    modalImage.src = "";
+    modalImage.alt = "";
     document.body.classList.remove("modal-open");
-  }
 
-  function updateViewedCounter() {
-    viewedCounter.textContent = String(viewedCount);
-  }
-
-  function updateMusicButton() {
-    musicButton.setAttribute("aria-pressed", wantsMusic ? "true" : "false");
-    musicButton.textContent = wantsMusic ? "Pausar musica" : "Activar musica";
-  }
-
-  function syncMusicPlayback() {
-    if (!ytMusicPlayer || !musicReady) {
-      return;
+    if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+      lastFocusedElement.focus();
     }
-
-    if (wantsMusic) {
-      ytMusicPlayer.playVideo();
-      return;
-    }
-
-    ytMusicPlayer.pauseVideo();
   }
 
-  function triggerAutoMusic() {
-    if (autoMusicTriggered || userMusicChoice) {
-      return;
-    }
+  function createProjectCard(project, index) {
+    var article = document.createElement("article");
+    var media = document.createElement("div");
+    var image = document.createElement("img");
+    var content = document.createElement("div");
+    var category = document.createElement("span");
+    var title = document.createElement("h3");
+    var summary = document.createElement("p");
+    var tagRow = document.createElement("div");
+    var button = document.createElement("button");
 
-    autoMusicTriggered = true;
-    wantsMusic = true;
-    syncMusicPlayback();
+    article.className = "project-card";
+    article.style.animationDelay = index * 60 + "ms";
+
+    media.className = "project-media";
+    image.src = project.image;
+    image.alt = "Captura de " + project.title;
+    image.loading = "lazy";
+    media.appendChild(image);
+
+    content.className = "project-content";
+    category.className = "project-category";
+    category.textContent = project.category;
+    title.textContent = project.title;
+    summary.textContent = project.summary;
+
+    tagRow.className = "tag-row";
+    project.tags.slice(0, 3).forEach(function (tag) {
+      tagRow.appendChild(createTag(tag));
+    });
+
+    button.className = "button project-open";
+    button.type = "button";
+    button.textContent = "Ver detalle";
+    button.addEventListener("click", function () {
+      openProject(project);
+    });
+
+    content.appendChild(category);
+    content.appendChild(title);
+    content.appendChild(summary);
+    content.appendChild(tagRow);
+    content.appendChild(button);
+
+    article.appendChild(media);
+    article.appendChild(content);
+
+    return article;
   }
 
-  function initializeYouTubePlayer() {
-    if (!window.YT || !window.YT.Player || ytMusicPlayer) {
-      return;
-    }
+  function renderProjects(filter) {
+    var filteredProjects = projects.filter(function (project) {
+      return filter === "all" || project.filters.indexOf(filter) !== -1;
+    });
 
-    ytMusicPlayer = new window.YT.Player("ytPlayer", {
-      width: "1",
-      height: "1",
-      videoId: ytVideoId,
-      playerVars: {
-        autoplay: 0,
-        controls: 0,
-        disablekb: 1,
-        fs: 0,
-        iv_load_policy: 3,
-        modestbranding: 1,
-        rel: 0,
-        playsinline: 1,
-        loop: 1,
-        playlist: ytVideoId
-      },
-      events: {
-        onReady: function () {
-          musicReady = true;
-          syncMusicPlayback();
-          updateMusicButton();
-        },
-        onStateChange: function (event) {
-          if (
-            event.data === window.YT.PlayerState.ENDED &&
-            wantsMusic &&
-            ytMusicPlayer
-          ) {
-            ytMusicPlayer.seekTo(0);
-            ytMusicPlayer.playVideo();
-          }
-        }
-      }
+    grid.innerHTML = "";
+    filteredProjects.forEach(function (project, index) {
+      grid.appendChild(createProjectCard(project, index));
     });
   }
 
-  var previousYouTubeReady = window.onYouTubeIframeAPIReady;
-  window.onYouTubeIframeAPIReady = function () {
-    if (typeof previousYouTubeReady === "function") {
-      previousYouTubeReady();
-    }
+  filterButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      var filter = button.getAttribute("data-filter") || "all";
 
-    initializeYouTubePlayer();
-  };
+      filterButtons.forEach(function (item) {
+        var isActive = item === button;
+        item.classList.toggle("is-active", isActive);
+        item.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
 
-  if (window.YT && window.YT.Player) {
-    initializeYouTubePlayer();
-  }
-
-  musicButton.addEventListener("click", function () {
-    userMusicChoice = true;
-    wantsMusic = !wantsMusic;
-    syncMusicPlayback();
+      renderProjects(filter);
+    });
   });
-  updateMusicButton();
 
-  function setupFirstGestureMusicKickstart() {
-    function handleFirstGesture() {
-      triggerAutoMusic();
-      document.removeEventListener("pointerdown", handleFirstGesture);
-      document.removeEventListener("keydown", handleFirstGesture);
-      document.removeEventListener("touchstart", handleFirstGesture);
-    }
-
-    document.addEventListener("pointerdown", handleFirstGesture, { passive: true });
-    document.addEventListener("keydown", handleFirstGesture);
-    document.addEventListener("touchstart", handleFirstGesture, { passive: true });
-  }
-
-  setupFirstGestureMusicKickstart();
-
-  function openPhotoModal(fileName, imageSrc, description) {
-    modalPhotoImage.src = imageSrc;
-    modalPhotoImage.alt = "Vista ampliada de " + fileName;
-    modalPhotoDescription.textContent = description;
-    photoModal.hidden = false;
-    photoModal.setAttribute("aria-hidden", "false");
-    refreshBodyModalState();
-  }
-
-  function closeOpenedPhotoModal() {
-    if (photoModal.hidden) {
-      return;
-    }
-
-    photoModal.hidden = true;
-    photoModal.setAttribute("aria-hidden", "true");
-    modalPhotoImage.src = "";
-    modalPhotoImage.alt = "";
-    refreshBodyModalState();
-
-    if (finalRevealPending && !finalRevealed) {
-      finalRevealPending = false;
-      window.setTimeout(triggerFinalReveal, 180);
-    }
-  }
-
-  function stopHeartRain() {
-    if (heartRainTimer) {
-      window.clearTimeout(heartRainTimer);
-      heartRainTimer = null;
-    }
-
-    heartRain.innerHTML = "";
-    heartRain.hidden = true;
-  }
-
-  function startHeartRain() {
-    stopHeartRain();
-    heartRain.hidden = false;
-
-    for (var i = 0; i < 95; i += 1) {
-      var drop = document.createElement("span");
-      drop.className = "heart-drop";
-      drop.textContent = String.fromCharCode(10084);
-      drop.style.left = (Math.random() * 100).toFixed(2) + "%";
-      drop.style.animationDelay = (Math.random() * 1.7).toFixed(2) + "s";
-      drop.style.animationDuration = (3 + Math.random() * 2.6).toFixed(2) + "s";
-      drop.style.fontSize = (0.8 + Math.random() * 1.4).toFixed(2) + "rem";
-      heartRain.appendChild(drop);
-    }
-
-    heartRainTimer = window.setTimeout(stopHeartRain, 7600);
-  }
-
-  function openFinalPhotoModal() {
-    finalPhotoImage.src = "photos/" + finalPhotoFile;
-    finalPhotoImage.alt = "Foto sorpresa final";
-    finalPhotoText.textContent = "Viste todas las fotos. Aqui tienes la nueva foto sorpresa.";
-    finalPhotoModal.hidden = false;
-    finalPhotoModal.setAttribute("aria-hidden", "false");
-    startHeartRain();
-    refreshBodyModalState();
-  }
-
-  function closeFinalPhotoModal() {
-    if (finalPhotoModal.hidden) {
-      return;
-    }
-
-    finalPhotoModal.hidden = true;
-    finalPhotoModal.setAttribute("aria-hidden", "true");
-    finalPhotoImage.src = "";
-    finalPhotoImage.alt = "";
-    stopHeartRain();
-    refreshBodyModalState();
-  }
-
-  function triggerFinalReveal() {
-    if (finalRevealed) {
-      return;
-    }
-
-    finalRevealed = true;
-    openFinalPhotoModal();
-  }
-
-  function markPhotoViewed(fileName, photoCard) {
-    if (photoCard) {
-      photoCard.classList.add("viewed");
-    }
-
-    if (viewedPhotos[fileName]) {
-      return;
-    }
-
-    viewedPhotos[fileName] = true;
-    viewedCount += 1;
-    updateViewedCounter();
-
-    if (viewedCount === totalPhotos) {
-      finalRevealPending = true;
-    }
-  }
-
-  closePhotoModal.addEventListener("click", closeOpenedPhotoModal);
-
-  photoModal.addEventListener("click", function (event) {
+  modal.addEventListener("click", function (event) {
     if (event.target.hasAttribute("data-close-modal")) {
-      closeOpenedPhotoModal();
-    }
-  });
-
-  closeFinalModal.addEventListener("click", closeFinalPhotoModal);
-
-  finalPhotoModal.addEventListener("click", function (event) {
-    if (event.target.hasAttribute("data-close-final")) {
-      closeFinalPhotoModal();
+      closeProject();
     }
   });
 
   document.addEventListener("keydown", function (event) {
-    if (event.key !== "Escape") {
-      return;
+    if (event.key === "Escape") {
+      closeProject();
     }
-
-    if (!finalPhotoModal.hidden) {
-      closeFinalPhotoModal();
-      return;
-    }
-
-    closeOpenedPhotoModal();
   });
 
-  finalPhotoImage.addEventListener("error", function () {
-    finalPhotoText.textContent = "No pude cargar la foto final. Verifica que exista photos/" + finalPhotoFile + ".";
-  });
-
-  function setGameStatus(message) {
-    gameStatus.textContent = message;
-  }
-
-  function clearPreviewInterval() {
-    if (!previewInterval) {
-      return;
-    }
-
-    window.clearInterval(previewInterval);
-    previewInterval = null;
-  }
-
-  function clearHideMismatchTimer() {
-    if (!hideMismatchTimer) {
-      return;
-    }
-
-    window.clearTimeout(hideMismatchTimer);
-    hideMismatchTimer = null;
-  }
-
-  function updateGameStats() {
-    pairsValue.textContent = String(pairsFound);
-    movesValue.textContent = String(movesCount);
-    previewValue.textContent = previewActive ? String(Math.max(previewRemaining, 0)) : "--";
-  }
-
-  function shuffleArray(items) {
-    for (var i = items.length - 1; i > 0; i -= 1) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = items[i];
-      items[i] = items[j];
-      items[j] = temp;
-    }
-  }
-
-  function createMemoryDeck() {
-    var deck = [];
-
-    for (var i = 0; i < memorySourcePhotos.length; i += 1) {
-      var fileName = memorySourcePhotos[i];
-      deck.push({ pairKey: fileName, fileName: fileName, revealed: false, matched: false, button: null });
-      deck.push({ pairKey: fileName, fileName: fileName, revealed: false, matched: false, button: null });
-    }
-
-    shuffleArray(deck);
-    return deck;
-  }
-
-  function applyCardVisual(card) {
-    if (!card || !card.button) {
-      return;
-    }
-
-    card.button.classList.toggle("revealed", !!card.revealed);
-    card.button.classList.toggle("matched", !!card.matched);
-    card.button.disabled = card.matched || !gameRunning || boardLocked;
-  }
-
-  function refreshBoardInteractivity() {
-    for (var i = 0; i < memoryCards.length; i += 1) {
-      applyCardVisual(memoryCards[i]);
-    }
-  }
-
-  function revealCard(index, shouldReveal) {
-    var card = memoryCards[index];
-    if (!card) {
-      return;
-    }
-
-    card.revealed = shouldReveal;
-    applyCardVisual(card);
-  }
-
-  function buildBoard() {
-    memoryCards = createMemoryDeck();
-    memoryBoard.innerHTML = "";
-
-    for (var i = 0; i < memoryCards.length; i += 1) {
-      var card = memoryCards[i];
-      var button = document.createElement("button");
-      var image = document.createElement("img");
-      var cover = document.createElement("span");
-
-      button.type = "button";
-      button.className = "memory-card";
-      button.setAttribute("aria-label", "Carta " + (i + 1));
-      button.setAttribute("data-card-index", String(i));
-
-      image.src = "photos/" + card.fileName;
-      image.alt = "Carta de memoria";
-      image.loading = "lazy";
-      image.className = "memory-photo";
-
-      cover.className = "memory-cover";
-      cover.textContent = String.fromCharCode(10084);
-
-      button.appendChild(image);
-      button.appendChild(cover);
-
-      (function bindCardClick(cardIndex) {
-        button.addEventListener("click", function () {
-          handleMemoryCardClick(cardIndex);
-        });
-      })(i);
-
-      memoryBoard.appendChild(button);
-      card.button = button;
-      card.revealed = false;
-      card.matched = false;
-      applyCardVisual(card);
-    }
-  }
-
-  function stopMemoryTimers() {
-    clearPreviewInterval();
-    clearHideMismatchTimer();
-  }
-
-  function beginMatchPhase() {
-    previewActive = false;
-    previewRemaining = 0;
-    gameRunning = true;
-    boardLocked = false;
-
-    for (var i = 0; i < memoryCards.length; i += 1) {
-      if (!memoryCards[i].matched) {
-        memoryCards[i].revealed = false;
-      }
-    }
-
-    setGameStatus("Ahora encuentra todas las parejas.");
-    updateGameStats();
-    refreshBoardInteractivity();
-  }
-
-  function startPreviewPhase() {
-    previewActive = true;
-    gameRunning = false;
-    boardLocked = true;
-    previewRemaining = memoryPreviewSeconds;
-
-    for (var i = 0; i < memoryCards.length; i += 1) {
-      memoryCards[i].revealed = true;
-      applyCardVisual(memoryCards[i]);
-    }
-
-    setGameStatus("Memoriza las cartas. Se ocultaran en " + previewRemaining + "s.");
-    updateGameStats();
-
-    clearPreviewInterval();
-    previewInterval = window.setInterval(function () {
-      previewRemaining -= 1;
-
-      if (previewRemaining <= 0) {
-        clearPreviewInterval();
-        beginMatchPhase();
-        return;
-      }
-
-      setGameStatus("Memoriza las cartas. Se ocultaran en " + previewRemaining + "s.");
-      updateGameStats();
-    }, 1000);
-  }
-
-  function unlockAccept() {
-    if (unlocked) {
-      return;
-    }
-
-    unlocked = true;
-    gameRunning = false;
-    boardLocked = true;
-    previewActive = false;
-    stopMemoryTimers();
-    updateGameStats();
-    refreshBoardInteractivity();
-
-    enterButton.disabled = false;
-    unlockMessage.hidden = false;
-    unlockMessage.textContent = "Desbloqueado. Presiona Aceptar.";
-    loveMessage.hidden = false;
-    loveMessage.textContent = winLoveMessage;
-    setGameStatus("Completaste todas las parejas. Ya puedes entrar al collage.");
-    startGameButton.textContent = "Completado";
-    startGameButton.disabled = true;
-  }
-
-  function handleMemoryCardClick(index) {
-    if (!gameRunning || boardLocked) {
-      return;
-    }
-
-    var currentCard = memoryCards[index];
-    if (!currentCard || currentCard.revealed || currentCard.matched) {
-      return;
-    }
-
-    triggerAutoMusic();
-    revealCard(index, true);
-
-    if (firstPickIndex === -1) {
-      firstPickIndex = index;
-      setGameStatus("Selecciona la segunda carta.");
-      return;
-    }
-
-    if (firstPickIndex === index) {
-      return;
-    }
-
-    secondPickIndex = index;
-    movesCount += 1;
-    boardLocked = true;
-    updateGameStats();
-    refreshBoardInteractivity();
-
-    var firstCard = memoryCards[firstPickIndex];
-    var secondCard = memoryCards[secondPickIndex];
-
-    if (firstCard.pairKey === secondCard.pairKey) {
-      firstCard.matched = true;
-      secondCard.matched = true;
-      pairsFound += 1;
-      updateGameStats();
-
-      window.setTimeout(function () {
-        firstPickIndex = -1;
-        secondPickIndex = -1;
-
-        if (pairsFound >= memorySourcePhotos.length) {
-          unlockAccept();
-          return;
-        }
-
-        boardLocked = false;
-        setGameStatus("Bien. Sigue encontrando parejas.");
-        refreshBoardInteractivity();
-      }, 260);
-
-      return;
-    }
-
-    setGameStatus("No coinciden. Intenta otra vez.");
-    clearHideMismatchTimer();
-    hideMismatchTimer = window.setTimeout(function () {
-      revealCard(firstPickIndex, false);
-      revealCard(secondPickIndex, false);
-      firstPickIndex = -1;
-      secondPickIndex = -1;
-      boardLocked = false;
-      setGameStatus("Busca la siguiente pareja.");
-      refreshBoardInteractivity();
-      hideMismatchTimer = null;
-    }, 680);
-  }
-
-  function startMemoryGame() {
-    if (unlocked) {
-      return;
-    }
-
-    triggerAutoMusic();
-    stopMemoryTimers();
-
-    pairsFound = 0;
-    movesCount = 0;
-    previewRemaining = 0;
-    firstPickIndex = -1;
-    secondPickIndex = -1;
-    previewActive = false;
-    gameRunning = false;
-    boardLocked = true;
-
-    enterButton.disabled = true;
-    unlockMessage.hidden = true;
-    loveMessage.hidden = true;
-    loveMessage.textContent = "";
-
-    buildBoard();
-    startGameButton.textContent = "Reiniciar reto";
-    startGameButton.disabled = false;
-    updateGameStats();
-    startPreviewPhase();
-  }
-
-  startGameButton.addEventListener("click", startMemoryGame);
-
-  updateGameStats();
-  updateViewedCounter();
-
-  for (var i = 1; i <= totalPhotos; i += 1) {
-    var card = document.createElement("figure");
-    var img = document.createElement("img");
-    var index = String(i).padStart(2, "0");
-    var fileName = "photo-" + index + ".jpeg";
-    var description = photoDescriptions[fileName] || "Descripcion pendiente para esta foto.";
-
-    card.className = "photo-card";
-    card.setAttribute("data-photo-name", fileName);
-    card.setAttribute("tabindex", "0");
-    card.setAttribute("role", "button");
-    card.style.setProperty("--tilt", tiltValues[(i - 1) % tiltValues.length] + "deg");
-    card.style.animationDelay = ((i - 1) * 0.08).toFixed(2) + "s";
-
-    img.src = "photos/" + fileName;
-    img.alt = "Foto especial " + i;
-    img.loading = "lazy";
-
-    card.appendChild(img);
-
-    (function bindPhotoEvents(photoCard, currentName, currentDescription) {
-      var imagePath = "photos/" + currentName;
-
-      photoCard.addEventListener("click", function () {
-        markPhotoViewed(currentName, photoCard);
-        openPhotoModal(currentName, imagePath, currentDescription);
-      });
-
-      photoCard.addEventListener("keydown", function (event) {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          markPhotoViewed(currentName, photoCard);
-          openPhotoModal(currentName, imagePath, currentDescription);
-        }
-      });
-    })(card, fileName, description);
-
-    collage.appendChild(card);
-  }
-
-  enterButton.addEventListener("click", function () {
-    triggerAutoMusic();
-
-    if (enterButton.disabled) {
-      return;
-    }
-
-    document.body.classList.add("show-gallery");
-    welcome.setAttribute("aria-hidden", "true");
-    gallery.setAttribute("aria-hidden", "false");
-  });
+  window.addEventListener("scroll", setHeaderState, { passive: true });
+  setHeaderState();
+  renderProjects("all");
 })();

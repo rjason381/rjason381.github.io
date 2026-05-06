@@ -3,91 +3,194 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ventana de Amor</title>
-  <meta name="description" content="Una ventana de amor de San Valentin con collage de fotos.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260214e">
+  <title>Jason R. | Portafolio BIM, metrados y costos</title>
+  <meta name="description" content="Portafolio profesional de proyectos BIM, metrados, presupuestos, control CAPEX y automatizaciones Revit.">
+  <link rel="stylesheet" href="styles.css?v=20260506a">
 </head>
 <body>
-  <div class="hearts" aria-hidden="true">
-    <span>&#10084;</span>
-    <span>&#10084;</span>
-    <span>&#10084;</span>
-    <span>&#10084;</span>
-    <span>&#10084;</span>
-    <span>&#10084;</span>
-    <span>&#10084;</span>
-    <span>&#10084;</span>
-    <span>&#10084;</span>
-    <span>&#10084;</span>
-    <span>&#10084;</span>
-    <span>&#10084;</span>
-  </div>
+  <header class="site-header" data-header>
+    <a class="brand" href="#inicio" aria-label="Ir al inicio">
+      <span class="brand-mark">JR</span>
+      <span>
+        <strong>Jason R.</strong>
+        <small>BIM | Costos | Automatizacion</small>
+      </span>
+    </a>
 
-  <div class="music-control">
-    <button id="musicButton" type="button" aria-pressed="true">Pausar musica</button>
-    <p class="music-label">Lasso - Hasta Ese Dia</p>
-  </div>
-  <div id="ytPlayer" aria-hidden="true"></div>
+    <nav class="site-nav" aria-label="Navegacion principal">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
 
-  <main class="app-shell">
-    <section class="welcome-card" id="welcome">
-      <p class="date-tag">14 de febrero</p>
-      <h1>Mini juego de amor</h1>
-      <p class="subtitle">Memoriza las fotos, encuentra las parejas y desbloquea el boton de aceptar.</p>
-
-      <div class="game-panel">
-        <div class="game-stats">
-          <p>Parejas: <strong id="pairsValue">0</strong>/<strong id="pairsTargetValue">15</strong></p>
-          <p>Movimientos: <strong id="movesValue">0</strong></p>
-          <p>Vista: <strong id="previewValue">--</strong></p>
-        </div>
-        <p id="gameStatus" class="game-status">Pulsa iniciar. Veras todas las fotos por unos segundos antes de ocultarse.</p>
-        <div id="memoryBoard" class="memory-board" aria-label="Tablero de parejas"></div>
-        <button id="startGameButton" class="game-start" type="button">Iniciar reto</button>
+  <main id="inicio">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-media" aria-hidden="true">
+        <img src="PORTAFOLIO/proyecto VIA EXPRESA SANTA ROSA.png" alt="">
       </div>
-      <p class="game-hint">Haz match de todas las parejas para desbloquear Aceptar y entrar al collage.</p>
+      <div class="hero-shade" aria-hidden="true"></div>
 
-      <p class="question">Quieres ser mi san valentin?</p>
-      <button id="enterButton" type="button" disabled>Aceptar</button>
-      <p id="unlockMessage" class="unlock-message" hidden>Desbloqueado. Presiona Aceptar.</p>
-      <p id="loveMessage" class="love-message" hidden></p>
+      <div class="hero-content">
+        <p class="eyebrow">Portafolio tecnico</p>
+        <h1 id="hero-title">Gestion BIM, metrados y control de costos para proyectos exigentes.</h1>
+        <p class="hero-copy">
+          Desarrollo modelos, tableros y herramientas que conectan la informacion tecnica con decisiones claras:
+          coordinacion, presupuestos, reportes y automatizacion sobre plataformas BIM.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button button-primary" href="#proyectos">Ver proyectos</a>
+          <a class="button button-secondary" href="https://github.com/rjason381" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+
+        <dl class="hero-metrics" aria-label="Resumen del portafolio">
+          <div>
+            <dt>10</dt>
+            <dd>proyectos visibles</dd>
+          </div>
+          <div>
+            <dt>BIM</dt>
+            <dd>gestion y coordinacion</dd>
+          </div>
+          <div>
+            <dt>Revit</dt>
+            <dd>add-ins y metrados</dd>
+          </div>
+        </dl>
+      </div>
     </section>
 
-    <section class="gallery-view" id="gallery" aria-hidden="true">
-      <header class="gallery-header">
-        <h2>Nuestro collage</h2>
-        <p>Todos estos momentos son especiales para mi.</p>
-        <p class="view-counter">Fotos vistas: <strong id="viewedCounter">0</strong>/15</p>
-      </header>
-      <div id="photoCollage" class="photo-collage"></div>
+    <section class="intro-band" aria-label="Resumen profesional">
+      <div class="intro-grid">
+        <p>
+          Perfil orientado a obras de infraestructura, salud y edificacion, con foco en informacion confiable,
+          trazabilidad de costos y entregables que equipos tecnicos pueden revisar con rapidez.
+        </p>
+        <ul>
+          <li>Modelos coordinados para lectura tecnica y seguimiento.</li>
+          <li>Itemizados, metrados y presupuestos conectados al modelo.</li>
+          <li>Tableros y automatizaciones para control de avance y CAPEX.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section projects-section" id="proyectos">
+      <div class="section-head">
+        <p class="eyebrow">Trabajo seleccionado</p>
+        <h2>Proyectos, tableros y herramientas BIM</h2>
+        <p>
+          Esta es una primera version con textos provisionales basados en las capturas. Luego afinamos nombres,
+          alcances, metricas y resultados reales de cada caso.
+        </p>
+      </div>
+
+      <div class="filter-bar" role="group" aria-label="Filtrar proyectos">
+        <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">Todos</button>
+        <button class="filter-button" type="button" data-filter="infraestructura" aria-pressed="false">Infraestructura</button>
+        <button class="filter-button" type="button" data-filter="salud" aria-pressed="false">Salud</button>
+        <button class="filter-button" type="button" data-filter="edificacion" aria-pressed="false">Edificacion</button>
+        <button class="filter-button" type="button" data-filter="costos" aria-pressed="false">Costos</button>
+        <button class="filter-button" type="button" data-filter="software" aria-pressed="false">Software</button>
+      </div>
+
+      <div class="projects-grid" id="projectsGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="section capabilities" id="servicios">
+      <div class="section-head section-head-split">
+        <div>
+          <p class="eyebrow">Capacidades</p>
+          <h2>Del modelo a la decision</h2>
+        </div>
+        <p>
+          Un portafolio pensado para mostrar no solo imagenes, sino criterio tecnico: que informacion se produce,
+          para que sirve y como mejora el control del proyecto.
+        </p>
+      </div>
+
+      <div class="capability-list">
+        <article>
+          <span>01</span>
+          <h3>Gestion BIM</h3>
+          <p>Coordinacion visual, organizacion de modelos y entregables claros para revision de arquitectura, estructuras e instalaciones.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Metrados y presupuestos</h3>
+          <p>Itemizados, cuantificaciones y control de partidas con criterio de obra, trazabilidad y lectura ejecutiva.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Automatizacion Revit</h3>
+          <p>Add-ins y flujos que sincronizan datos del modelo con costos, metrados y reportes para reducir trabajo repetitivo.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>Control CAPEX</h3>
+          <p>Tableros para seguimiento financiero, comparacion de escenarios y presentacion profesional de indicadores clave.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section workflow" aria-label="Forma de trabajo">
+      <div class="workflow-copy">
+        <p class="eyebrow">Metodo</p>
+        <h2>Informacion tecnica con orden, contexto y presentacion.</h2>
+      </div>
+      <div class="workflow-steps">
+        <article>
+          <strong>Diagnostico</strong>
+          <p>Se identifica que datos necesita el equipo y que entregables aportan valor.</p>
+        </article>
+        <article>
+          <strong>Estructura</strong>
+          <p>Se ordenan modelos, partidas, codigos, vistas y reportes para trabajar con consistencia.</p>
+        </article>
+        <article>
+          <strong>Entrega</strong>
+          <p>Se presentan tableros, imagenes y herramientas listas para revision, seguimiento o toma de decision.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contacto">
+      <div>
+        <p class="eyebrow">Contacto</p>
+        <h2>Listo para presentar tu experiencia con mas fuerza.</h2>
+        <p>
+          Esta version queda preparada para reemplazar textos provisionales por datos reales: rol, empresa, fechas,
+          tecnologias, impactos y enlaces de descarga o demo.
+        </p>
+      </div>
+      <div class="contact-actions">
+        <a class="button button-primary" href="https://github.com/rjason381" target="_blank" rel="noreferrer">Ver GitHub</a>
+        <a class="button button-light" href="#proyectos">Volver a proyectos</a>
+      </div>
     </section>
   </main>
 
-  <div id="photoModal" class="photo-modal" aria-hidden="true" hidden>
-    <div class="photo-modal-backdrop" data-close-modal></div>
-    <div class="photo-modal-card" role="dialog" aria-modal="true" aria-label="Foto ampliada">
-      <button id="closePhotoModal" class="modal-close" type="button" aria-label="Cerrar imagen">Cerrar</button>
-      <img id="modalPhotoImage" class="modal-photo-image" src="" alt="">
-      <p id="modalPhotoDescription" class="modal-photo-description"></p>
-    </div>
+  <footer class="site-footer">
+    <p>Jason R. - Portafolio profesional BIM, costos y automatizacion.</p>
+  </footer>
+
+  <div class="project-modal" id="projectModal" hidden>
+    <button class="modal-backdrop" type="button" data-close-modal aria-label="Cerrar detalle"></button>
+    <article class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="Cerrar">Cerrar</button>
+      <div class="modal-image-wrap">
+        <img id="modalImage" src="" alt="">
+      </div>
+      <div class="modal-body">
+        <p class="modal-kicker" id="modalCategory"></p>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDescription"></p>
+        <ul id="modalHighlights"></ul>
+        <div class="modal-tags" id="modalTags"></div>
+      </div>
+    </article>
   </div>
 
-  <div id="finalPhotoModal" class="final-photo-modal" aria-hidden="true" hidden>
-    <div class="final-photo-backdrop" data-close-final></div>
-    <div class="final-photo-card" role="dialog" aria-modal="true" aria-labelledby="finalPhotoTitle">
-      <button id="closeFinalModal" class="modal-close final-close" type="button" aria-label="Cerrar sorpresa">Cerrar</button>
-      <p id="finalPhotoTitle" class="final-photo-title">Sorpresa final</p>
-      <img id="finalPhotoImage" class="modal-photo-image" src="" alt="">
-      <p id="finalPhotoText" class="modal-photo-description">Viste todas las fotos. Te mereces esta sorpresa.</p>
-    </div>
-  </div>
-
-  <div id="heartRain" class="heart-rain" aria-hidden="true" hidden></div>
-
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script src="main.js?v=20260214e"></script>
+  <script src="main.js?v=20260506a"></script>
 </body>
 </html>
