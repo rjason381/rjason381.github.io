@@ -26,6 +26,7 @@ Implementacion BIM para proyectos de edificacion e infraestructura, con foco en 
 - Via Expresa Santa Rosa.
 - Country Club Villa.
 - Gestion BIM Proyecto EIMI.
+- Gestion BIM y MIDP V2.
 - Control CAPEX.
 - Add-ins Revit para itemizado, costos, metrados y sincronizacion de datos.
 

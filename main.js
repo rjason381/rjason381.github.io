@@ -3,37 +3,28 @@
     {
       title: "Via Expresa Santa Rosa",
       category: "Infraestructura vial",
-      filters: ["infraestructura"],
-      image: "PORTAFOLIO/VIA EXPRESA SANTA ROSAA.png",
-      summary: "Visualizacion tecnica del corredor vial con lectura de componentes, contexto urbano y coordinacion del modelo.",
-      description: "Proyecto de infraestructura presentado con enfoque BIM para comunicar alcance, interferencias y zonas de trabajo en una vista clara para revision tecnica.",
-      highlights: [
-        "Modelo y vistas orientadas a coordinacion de obra.",
-        "Lectura visual de tramos, estructuras y entorno inmediato.",
-        "Base grafica preparada para reportes ejecutivos."
-      ],
-      tags: ["BIM", "Infraestructura", "Coordinacion"]
-    },
-    {
-      title: "Via Expresa Santa Rosa - gestion del proyecto",
-      category: "Infraestructura vial",
       filters: ["infraestructura", "costos"],
-      image: "PORTAFOLIO/proyecto VIA EXPRESA SANTA ROSA.png",
-      summary: "Panel tecnico para consolidar informacion del proyecto vial y facilitar seguimiento de datos relevantes.",
-      description: "Captura de gestion asociada al proyecto Via Expresa Santa Rosa, enfocada en ordenar informacion tecnica para control y toma de decisiones.",
-      highlights: [
-        "Organizacion de informacion por frentes y componentes.",
-        "Presentacion visual para reuniones de seguimiento.",
-        "Enfoque en trazabilidad y lectura rapida del avance."
+      images: [
+        { src: "PORTAFOLIO/VIA EXPRESA SANTA ROSAA.png", label: "Vista tecnica del corredor vial" },
+        { src: "PORTAFOLIO/proyecto VIA EXPRESA SANTA ROSA.png", label: "Panel de gestion del proyecto" }
       ],
-      tags: ["Gestion", "Seguimiento", "Costos"]
+      summary: "Coordinacion visual y seguimiento tecnico para un proyecto de infraestructura vial.",
+      description: "Caso de infraestructura presentado con enfoque BIM para comunicar alcance, componentes, zonas de trabajo e informacion de gestion en una sola lectura.",
+      highlights: [
+        "Vistas orientadas a coordinacion y revision de obra.",
+        "Informacion tecnica consolidada para seguimiento.",
+        "Base visual para reportes ejecutivos y reuniones."
+      ],
+      tags: ["BIM", "Infraestructura", "Gestion"]
     },
     {
       title: "Country Club Villa",
       category: "Edificacion",
       filters: ["edificacion"],
-      image: "PORTAFOLIO/PROYECTO COUNTRY CLUB VILLA.png",
-      summary: "Modelo arquitectonico y tecnico para proyecto residencial, con vistas preparadas para presentacion profesional.",
+      images: [
+        { src: "PORTAFOLIO/PROYECTO COUNTRY CLUB VILLA.png", label: "Modelo arquitectonico del proyecto" }
+      ],
+      summary: "Modelo arquitectonico y tecnico con vistas preparadas para presentacion profesional.",
       description: "Trabajo de edificacion con enfoque en representacion, revision y comunicacion de elementos del proyecto desde el modelo digital.",
       highlights: [
         "Vistas del modelo para explicar alcance arquitectonico.",
@@ -43,40 +34,31 @@
       tags: ["Edificacion", "Modelo", "Presentacion"]
     },
     {
-      title: "Itemizado y presupuesto",
-      category: "Costos y metrados",
-      filters: ["costos"],
-      image: "PORTAFOLIO/ITEMIZADO Y PRESUPUESTO.png",
-      summary: "Estructura de partidas, metrados y presupuesto orientada a control tecnico y financiero del proyecto.",
-      description: "Sistema de itemizado para conectar cantidades, partidas y valores de presupuesto con una lectura ordenada del alcance.",
-      highlights: [
-        "Clasificacion de partidas para analisis y seguimiento.",
-        "Base para reportes de presupuesto y control de cambios.",
-        "Formato pensado para revision tecnica y ejecutiva."
-      ],
-      tags: ["Presupuesto", "Metrados", "Partidas"]
-    },
-    {
       title: "Hospital Sergio E. Bernales",
       category: "Salud",
-      filters: ["salud", "edificacion"],
-      image: "PORTAFOLIO/HOSPITAL SEGIO BERNALES.png",
-      summary: "Proyecto hospitalario con foco en coordinacion multidisciplinaria, visualizacion de especialidades y lectura de infraestructura compleja.",
-      description: "Captura de proyecto de salud donde la informacion BIM ayuda a revisar espacios, sistemas y componentes de alta complejidad para seguimiento tecnico.",
+      filters: ["salud", "edificacion", "software"],
+      images: [
+        { src: "PORTAFOLIO/HOSPITAL SEGIO BERNALES.png", label: "Modelo BIM hospitalario" },
+        { src: "PORTAFOLIO/MIP ADHOC BERNALES.png", label: "Modulo MIDP para seguimiento de entregables" }
+      ],
+      summary: "Coordinacion hospitalaria y seguimiento de entregables para infraestructura de alta complejidad.",
+      description: "Caso de salud donde el modelo y las herramientas de seguimiento ayudan a revisar espacios, sistemas, entregables y avance tecnico.",
       highlights: [
         "Modelo preparado para inspeccion de zonas criticas.",
         "Visualizacion de infraestructura hospitalaria compleja.",
-        "Soporte para coordinacion multidisciplinaria."
+        "Seguimiento de entregables mediante herramienta de gestion."
       ],
-      tags: ["Hospital", "BIM", "Coordinacion"]
+      tags: ["Hospital", "BIM", "MIDP"]
     },
     {
       title: "Hospital Antonio Lorena Nivel III-1 - Cusco",
       category: "Salud",
       filters: ["salud", "edificacion"],
-      image: "PORTAFOLIO/HOSPITAL ANTONIO LORENA  - CUSCO.png",
-      summary: "Representacion tecnica de proyecto hospitalario de alta complejidad con comunicacion visual para revision de alcance.",
-      description: "Proyecto de salud en Cusco presentado mediante capturas de modelo para apoyar seguimiento, revision y explicacion tecnica de componentes principales.",
+      images: [
+        { src: "PORTAFOLIO/HOSPITAL ANTONIO LORENA  - CUSCO.png", label: "Modelo BIM hospitalario" }
+      ],
+      summary: "Representacion tecnica de proyecto hospitalario para revision de alcance y componentes principales.",
+      description: "Proyecto de salud en Cusco presentado mediante capturas de modelo para apoyar seguimiento, revision y explicacion tecnica.",
       highlights: [
         "Vistas tecnicas para comunicar el alcance del proyecto.",
         "Lectura ordenada de volumenes y componentes principales.",
@@ -85,60 +67,55 @@
       tags: ["Salud", "Cusco", "Modelo BIM"]
     },
     {
-      title: "Gestion BIM - Proyecto EIMI",
-      category: "Gestion BIM",
-      filters: ["edificacion", "costos"],
-      image: "PORTAFOLIO/gestion BIM PROYECTO EIMI.png",
-      summary: "Flujo de gestion BIM para integrar informacion del modelo con criterios de revision, control y trazabilidad.",
-      description: "Trabajo orientado a ordenar informacion BIM, documentar criterios y convertir el modelo en una fuente util para seguimiento tecnico bajo flujos colaborativos.",
+      title: "Gestion BIM y MIDP V2",
+      category: "Gestion de informacion",
+      filters: ["edificacion", "costos", "software"],
+      images: [
+        { src: "PORTAFOLIO/gestion BIM PROYECTO EIMI.png", label: "Gestion BIM del proyecto" },
+        { src: "PORTAFOLIO/MIDP ADHOC.png", label: "Configuracion de datos MIDP V2" }
+      ],
+      summary: "Flujo de gestion BIM para ordenar modelos, datos, entregables y trazabilidad de informacion.",
+      description: "Trabajo orientado a convertir el modelo y sus datos en una fuente util para seguimiento tecnico, control de entregables y coordinacion colaborativa.",
       highlights: [
         "Estructura de informacion para gestion del modelo.",
-        "Apoyo a control de entregables y revision de datos.",
-        "Comunicacion clara de elementos clave del proyecto."
+        "Control de entregables y revision de datos.",
+        "Configuracion de fuentes y tablas para seguimiento."
       ],
-      tags: ["Gestion BIM", "Datos", "Entregables"]
+      tags: ["Gestion BIM", "MIDP", "Datos"]
     },
     {
-      title: "Control CAPEX",
-      category: "Control financiero",
+      title: "Costos, itemizado y control CAPEX",
+      category: "Costos y metrados",
       filters: ["costos", "software"],
-      image: "PORTAFOLIO/CONTROLCAPEX.png",
-      summary: "Tablero para control de inversion, seguimiento de indicadores y presentacion ejecutiva de costos.",
-      description: "Herramienta visual para monitorear informacion financiera del proyecto y facilitar lectura de CAPEX en diferentes niveles de detalle.",
-      highlights: [
-        "Dashboard para indicadores de inversion y control.",
-        "Presentacion limpia para reuniones de seguimiento.",
-        "Base para comparar escenarios, avances y desviaciones."
+      images: [
+        { src: "PORTAFOLIO/ITEMIZADO Y PRESUPUESTO.png", label: "Itemizado y presupuesto" },
+        { src: "PORTAFOLIO/CONTROLCAPEX.png", label: "Dashboard de control CAPEX" }
       ],
-      tags: ["CAPEX", "Dashboard", "Costos"]
+      summary: "Estructura de partidas y tablero de control para seguimiento tecnico y financiero.",
+      description: "Caso orientado a conectar cantidades, partidas, presupuesto e indicadores de inversion para facilitar seguimiento y toma de decisiones.",
+      highlights: [
+        "Clasificacion de partidas para analisis y seguimiento.",
+        "Dashboard para indicadores de inversion y control.",
+        "Formato pensado para revision tecnica y ejecutiva."
+      ],
+      tags: ["Presupuesto", "CAPEX", "Metrados"]
     },
     {
-      title: "Add-in de sincronizacion de modelo, costos y metrados",
+      title: "Add-ins Revit para costos y metrados",
       category: "Software BIM",
       filters: ["software", "costos"],
-      image: "PORTAFOLIO/ADDIN DE SINCRONIZACION DEL MODELO CON COSTOS Y METRADOS.png",
-      summary: "Automatizacion para vincular informacion del modelo con metrados y costos, reduciendo trabajo manual.",
-      description: "Desarrollo de add-in orientado a sincronizar datos del modelo BIM con estructuras de costos y cantidades para mejorar consistencia.",
+      images: [
+        { src: "PORTAFOLIO/ADDIN DE SINCRONIZACION DEL MODELO CON COSTOS Y METRADOS.png", label: "Sincronizacion de modelo, costos y metrados" },
+        { src: "PORTAFOLIO/ADDIN DE ITEMIZADO Y FCOSTOS REVIT.png", label: "Itemizado y costos desde Revit" }
+      ],
+      summary: "Automatizaciones para vincular informacion del modelo con metrados, partidas y costos.",
+      description: "Desarrollo de herramientas para acelerar el armado de itemizados, sincronizar datos del modelo y reducir trabajo manual en flujos de presupuesto.",
       highlights: [
         "Conexion entre parametros del modelo y estructura de costos.",
-        "Reduccion de tareas repetitivas en metrados.",
-        "Flujo preparado para control y actualizacion de datos."
+        "Asociacion de elementos con partidas y costos.",
+        "Reduccion de tareas repetitivas en metrados."
       ],
       tags: ["Revit", "Add-in", "Automatizacion"]
-    },
-    {
-      title: "Add-in de itemizado y costos para Revit",
-      category: "Software BIM",
-      filters: ["software", "costos"],
-      image: "PORTAFOLIO/ADDIN DE ITEMIZADO Y FCOSTOS REVIT.png",
-      summary: "Herramienta para itemizar elementos y trabajar costos desde Revit con una interfaz directa.",
-      description: "Add-in para acelerar el armado de itemizados y asociar informacion de costos dentro del entorno BIM.",
-      highlights: [
-        "Interfaz enfocada en itemizado desde el modelo.",
-        "Asociacion de elementos con partidas y costos.",
-        "Preparado para flujos de metrados y presupuesto."
-      ],
-      tags: ["Revit", "Itemizado", "Costos"]
     }
   ];
 
@@ -152,9 +129,10 @@
   var modalDescription = document.getElementById("modalDescription");
   var modalHighlights = document.getElementById("modalHighlights");
   var modalTags = document.getElementById("modalTags");
+  var modalThumbs = document.getElementById("modalThumbs");
   var lastFocusedElement = null;
 
-  if (!grid || !modal || !modalImage || !modalTitle || !modalCategory || !modalDescription || !modalHighlights || !modalTags) {
+  if (!grid || !modal || !modalImage || !modalTitle || !modalCategory || !modalDescription || !modalHighlights || !modalTags || !modalThumbs) {
     return;
   }
 
@@ -163,7 +141,7 @@
       return;
     }
 
-    header.classList.toggle("is-scrolled", window.scrollY > 24);
+    header.classList.toggle("is-scrolled", window.scrollY > 12);
   }
 
   function createTag(label) {
@@ -173,15 +151,27 @@
     return tag;
   }
 
+  function setModalImage(project, selectedIndex) {
+    var selectedImage = project.images[selectedIndex];
+
+    modalImage.src = selectedImage.src;
+    modalImage.alt = selectedImage.label + " - " + project.title;
+
+    Array.prototype.slice.call(modalThumbs.querySelectorAll(".modal-thumb")).forEach(function (button, index) {
+      var isActive = index === selectedIndex;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+  }
+
   function openProject(project) {
     lastFocusedElement = document.activeElement;
-    modalImage.src = project.image;
-    modalImage.alt = "Captura del proyecto " + project.title;
     modalTitle.textContent = project.title;
     modalCategory.textContent = project.category;
     modalDescription.textContent = project.description;
     modalHighlights.innerHTML = "";
     modalTags.innerHTML = "";
+    modalThumbs.innerHTML = "";
 
     project.highlights.forEach(function (highlight) {
       var item = document.createElement("li");
@@ -193,6 +183,26 @@
       modalTags.appendChild(createTag(tag));
     });
 
+    project.images.forEach(function (imageData, index) {
+      var thumb = document.createElement("button");
+      var image = document.createElement("img");
+
+      thumb.className = "modal-thumb";
+      thumb.type = "button";
+      thumb.setAttribute("aria-label", imageData.label);
+      thumb.setAttribute("aria-pressed", "false");
+      image.src = imageData.src;
+      image.alt = "";
+      image.loading = "lazy";
+
+      thumb.appendChild(image);
+      thumb.addEventListener("click", function () {
+        setModalImage(project, index);
+      });
+      modalThumbs.appendChild(thumb);
+    });
+
+    setModalImage(project, 0);
     modal.hidden = false;
     document.body.classList.add("modal-open");
     modal.querySelector("[data-close-modal]").focus();
@@ -206,6 +216,7 @@
     modal.hidden = true;
     modalImage.src = "";
     modalImage.alt = "";
+    modalThumbs.innerHTML = "";
     document.body.classList.remove("modal-open");
 
     if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
@@ -225,13 +236,20 @@
     var button = document.createElement("button");
 
     article.className = "project-card";
-    article.style.animationDelay = index * 60 + "ms";
+    article.style.animationDelay = index * 40 + "ms";
 
     media.className = "project-media";
-    image.src = project.image;
+    image.src = project.images[0].src;
     image.alt = "Captura de " + project.title;
     image.loading = "lazy";
     media.appendChild(image);
+
+    if (project.images.length > 1) {
+      var count = document.createElement("span");
+      count.className = "image-count";
+      count.textContent = project.images.length + " capturas";
+      media.appendChild(count);
+    }
 
     content.className = "project-content";
     category.className = "project-category";
@@ -246,7 +264,7 @@
 
     button.className = "button project-open";
     button.type = "button";
-    button.textContent = "Ver detalle";
+    button.textContent = "Ver proyecto";
     button.addEventListener("click", function () {
       openProject(project);
     });
