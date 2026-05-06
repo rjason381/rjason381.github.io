@@ -29,6 +29,7 @@ Implementacion BIM para proyectos de edificacion e infraestructura, con foco en 
 - Gestion BIM y MIDP V2.
 - Control CAPEX.
 - Add-ins Revit para itemizado, costos, metrados y sincronizacion de datos.
+- Perfil profesional con fotografia y experiencia destacada.
 
 ## Servicios BIM
 
@@ -52,4 +53,4 @@ Implementacion BIM para proyectos de edificacion e infraestructura, con foco en 
 - `index.html`: contenido principal del portafolio.
 - `styles.css`: estilos responsive y sistema visual.
 - `main.js`: filtros, tarjetas de proyectos y modal de detalle.
-- `PORTAFOLIO/`: capturas usadas por la web.
+- `PORTAFOLIO/`: capturas y fotografia profesional usadas por la web.
