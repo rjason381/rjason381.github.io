@@ -57,12 +57,12 @@
       tags: ["Presupuesto", "Metrados", "Partidas"]
     },
     {
-      title: "Hospital Sergio Bernales",
+      title: "Hospital Sergio E. Bernales",
       category: "Salud",
       filters: ["salud", "edificacion"],
       image: "PORTAFOLIO/HOSPITAL SEGIO BERNALES.png",
-      summary: "Proyecto hospitalario con foco en coordinacion, visualizacion de especialidades y lectura de infraestructura compleja.",
-      description: "Captura de proyecto de salud donde la informacion BIM ayuda a revisar espacios, sistemas y componentes de alta complejidad.",
+      summary: "Proyecto hospitalario con foco en coordinacion multidisciplinaria, visualizacion de especialidades y lectura de infraestructura compleja.",
+      description: "Captura de proyecto de salud donde la informacion BIM ayuda a revisar espacios, sistemas y componentes de alta complejidad para seguimiento tecnico.",
       highlights: [
         "Modelo preparado para inspeccion de zonas criticas.",
         "Visualizacion de infraestructura hospitalaria compleja.",
@@ -71,12 +71,12 @@
       tags: ["Hospital", "BIM", "Coordinacion"]
     },
     {
-      title: "Hospital Antonio Lorena - Cusco",
+      title: "Hospital Antonio Lorena Nivel III-1 - Cusco",
       category: "Salud",
       filters: ["salud", "edificacion"],
       image: "PORTAFOLIO/HOSPITAL ANTONIO LORENA  - CUSCO.png",
-      summary: "Representacion tecnica de proyecto hospitalario con comunicacion visual para revision de alcance.",
-      description: "Proyecto de salud en Cusco presentado mediante capturas de modelo para apoyar seguimiento, revision y explicacion tecnica.",
+      summary: "Representacion tecnica de proyecto hospitalario de alta complejidad con comunicacion visual para revision de alcance.",
+      description: "Proyecto de salud en Cusco presentado mediante capturas de modelo para apoyar seguimiento, revision y explicacion tecnica de componentes principales.",
       highlights: [
         "Vistas tecnicas para comunicar el alcance del proyecto.",
         "Lectura ordenada de volumenes y componentes principales.",
@@ -89,8 +89,8 @@
       category: "Gestion BIM",
       filters: ["edificacion", "costos"],
       image: "PORTAFOLIO/gestion BIM PROYECTO EIMI.png",
-      summary: "Flujo de gestion BIM para integrar informacion del modelo con criterios de revision y control.",
-      description: "Trabajo orientado a ordenar informacion BIM, documentar criterios y convertir el modelo en una fuente util para seguimiento tecnico.",
+      summary: "Flujo de gestion BIM para integrar informacion del modelo con criterios de revision, control y trazabilidad.",
+      description: "Trabajo orientado a ordenar informacion BIM, documentar criterios y convertir el modelo en una fuente util para seguimiento tecnico bajo flujos colaborativos.",
       highlights: [
         "Estructura de informacion para gestion del modelo.",
         "Apoyo a control de entregables y revision de datos.",
