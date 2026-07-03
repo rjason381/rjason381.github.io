@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260622f">
+  <link rel="stylesheet" href="styles.css?v=20260702a">
 </head>
 <body>
   <header class="solid-nav" id="navbar">
@@ -21,6 +21,7 @@
 
       <nav class="site-nav" aria-label="Navegación principal">
         <a href="#proyectos">Casos de Estudio</a>
+        <a href="#desarrollos-ia">Desarrollos IA</a>
         <a href="#metodologia">Metodología</a>
         <a href="#contacto">Contacto</a>
       </nav>
@@ -35,7 +36,10 @@
         <p>
           Documentación técnica y casos de estudio sobre implementación de metodologías BIM, cumplimiento de la norma ISO 19650 y desarrollo de herramientas de automatización para el sector salud, infraestructura vial y edificaciones.
         </p>
-        <a class="button button-primary" href="#proyectos">Ver Casos de Estudio</a>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#proyectos">Ver Casos de Estudio</a>
+          <a class="button button-secondary" href="#desarrollos-ia">Ver Desarrollos IA</a>
+        </div>
       </div>
     </section>
 
@@ -256,6 +260,126 @@
       </div>
     </section>
 
+    <section class="ai-dev-section" id="desarrollos-ia">
+      <div class="section-shell">
+        <div class="section-heading fade-in">
+          <h2>Desarrollos IA, Add-ins y Plataformas</h2>
+          <span aria-hidden="true"></span>
+          <p>Aplicaciones propias que conectan modelos BIM, presupuestos, auditorías y control de proyectos. Son desarrollos web y add-ins para Revit construidos con automatización, datos estructurados y flujos asistidos por IA.</p>
+        </div>
+
+        <div class="ai-dev-grid">
+          <article class="ai-dev-card fade-in">
+            <figure class="ai-dev-media">
+              <img src="desarrollosia/ITEMYCOSTOS2.png" alt="Interfaz de ItemiCostos integrada en Revit para presupuesto BIM">
+            </figure>
+            <div class="ai-dev-body">
+              <p class="ai-dev-kicker">Web + Add-in Revit</p>
+              <h3>Quantiva / ItemiCostos</h3>
+              <p>Plataforma para itemizado jerárquico, presupuesto tipo S10, recursos, APU, metrados y fórmulas polinómicas. El add-in se integra con Revit mediante WebView2 para importar costos, verificar codificaciones, crear tablas y exportar metrados BIM al backend.</p>
+              <div class="tag-row ai-dev-tags" aria-label="Tecnologías de Quantiva ItemiCostos">
+                <span>React</span>
+                <span>TypeScript</span>
+                <span>Node</span>
+                <span>MySQL</span>
+                <span>Revit API</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="ai-dev-card fade-in" style="--delay: 60ms;">
+            <figure class="ai-dev-media">
+              <img src="desarrollosia/HERRAMIENTAS.png" alt="Interfaz del add-in JeiTools en Revit">
+            </figure>
+            <div class="ai-dev-body">
+              <p class="ai-dev-kicker">Add-in Revit 2024/2025</p>
+              <h3>JeiTools</h3>
+              <p>Suite de herramientas de apoyo para modelado, CAD, tablas y estándares BIM. Centraliza rutinas frecuentes en una interfaz WPF por pestañas y cuenta con instalador MSI/Burn para despliegue profesional en equipos de producción.</p>
+              <div class="tag-row ai-dev-tags" aria-label="Tecnologías de JeiTools">
+                <span>C#</span>
+                <span>WPF</span>
+                <span>.NET</span>
+                <span>WiX</span>
+                <span>BIM Standards</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="ai-dev-card fade-in">
+            <figure class="ai-dev-media">
+              <img src="desarrollosia/AUDITORIA LOIN de MODELOS BIM.png" alt="Ventana de auditoría BIM para modelos Revit">
+            </figure>
+            <div class="ai-dev-body">
+              <p class="ai-dev-kicker">Auditoría BIM / QA-QC</p>
+              <h3>JeiAudit + Auditoría LOIN</h3>
+              <p>Add-ins para revisar existencia de parámetros, nomenclatura de familias, subproyectos, coordenadas, categorías modeladas y reglas LOIN. Generan salidas Excel, CSV y reportes para trazabilidad técnica y tableros de control.</p>
+              <div class="tag-row ai-dev-tags" aria-label="Tecnologías de auditoría BIM">
+                <span>Revit API</span>
+                <span>Model Checker</span>
+                <span>Excel</span>
+                <span>CSV</span>
+                <span>QA/QC</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="ai-dev-card fade-in" style="--delay: 60ms;">
+            <figure class="ai-dev-media">
+              <img src="desarrollosia/ITEMYCOSTOS.png" alt="Código y configuración técnica de jobs BIM para ItemiCostos">
+            </figure>
+            <div class="ai-dev-body">
+              <p class="ai-dev-kicker">Automatización BIM</p>
+              <h3>Model Auditor y Jobs BIM</h3>
+              <p>Motor de validación y sincronización para codificaciones, metrados, estados de importación y procesos asíncronos. Permite tratar el modelo como fuente de datos y enviar lotes de información a servicios web preparados para flujos BIM en la nube.</p>
+              <div class="tag-row ai-dev-tags" aria-label="Tecnologías de Model Auditor">
+                <span>APS</span>
+                <span>Workers</span>
+                <span>SSE</span>
+                <span>API REST</span>
+                <span>BIM Data</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="ai-dev-card fade-in">
+            <figure class="ai-dev-media">
+              <img src="desarrollosia/MIDP2.png" alt="Editor visual del sistema MIDP en Dechini Suite">
+            </figure>
+            <div class="ai-dev-body">
+              <p class="ai-dev-kicker">Gestión de proyectos</p>
+              <h3>MIDP V2</h3>
+              <p>Aplicación para el Modelo Integrado de Desarrollo de Proyectos: configuración, grupos de entregables, control de avance, flujos de revisión, accesos y visualización tipo BI. Está integrada al shell de Dechini Suite y preparada para despliegue en Cloud Run.</p>
+              <div class="tag-row ai-dev-tags" aria-label="Tecnologías de MIDP V2">
+                <span>JavaScript</span>
+                <span>Node</span>
+                <span>Cloud Run</span>
+                <span>Auth</span>
+                <span>BI</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="ai-dev-card fade-in" style="--delay: 60ms;">
+            <figure class="ai-dev-media">
+              <img src="desarrollosia/PRESUPUESTADOR2.png" alt="Dashboard financiero y presupuestador de Dechini Suite">
+            </figure>
+            <div class="ai-dev-body">
+              <p class="ai-dev-kicker">ERP / Presupuestador</p>
+              <h3>ERP Dechini Web</h3>
+              <p>Suite web para propuestas, presupuestos, control comercial, curvas acumuladas, costos reales, valorizaciones y módulos financieros como Ábaco, Pulso y Resumen Comercial. Une frontend React/Vite con backend .NET y persistencia MySQL.</p>
+              <div class="tag-row ai-dev-tags" aria-label="Tecnologías de ERP Dechini Web">
+                <span>React</span>
+                <span>Vite</span>
+                <span>.NET</span>
+                <span>MySQL</span>
+                <span>GCP</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="capabilities-section section-band" id="metodologia">
       <div class="section-shell">
         <div class="section-heading fade-in">
@@ -377,6 +501,6 @@
     </div>
   </footer>
 
-  <script src="main.js?v=20260622f"></script>
+  <script src="main.js?v=20260702a"></script>
 </body>
 </html>
